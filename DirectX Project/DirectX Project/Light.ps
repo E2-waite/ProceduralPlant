@@ -1,0 +1,66 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename: light.ps
+////////////////////////////////////////////////////////////////////////////////
+
+/////////////
+// GLOBALS //
+/////////////
+Texture2D shaderTexture;
+SamplerState SampleType;
+
+cbuffer LightBuffer
+{
+	float4 ambientColour;
+	float4 diffuseColour;
+	float3 lightDirection;
+	float padding;
+}
+
+//////////////
+// TYPEDEFS //
+//////////////
+struct PixelInputType
+{
+	float4 position : SV_POSITION;
+	float2 tex : TEXCOORD0;
+	float3 normal : NORMAL;
+};
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Pixel Shader
+////////////////////////////////////////////////////////////////////////////////
+float4 LightPixelShader(PixelInputType input) : SV_TARGET
+{
+	float4 textureColour;
+	float3 lightDir;
+	float lightIntensity;
+	float4 colour;
+
+	// Sample the pixel colour from the texture using the sampler at this texture coordinate location.
+	textureColour = shaderTexture.Sample(SampleType, input.tex);
+
+	//Set the default output colour to the ambient light value for all pixels.
+	colour = ambientColour;
+
+	// The light intensity value is calculated as the dot product between the normal vector of the triangle and the light direction vector.
+	//Invert light direction for calculations.
+	lightDir = -lightDirection;
+
+	// Calculate the amount of light on this pixel.
+	lightIntensity = saturate(dot(input.normal, lightDir));
+
+	if(lightIntensity > 0.0f)
+	{
+		// Determine the final diffuse colour based on the diffuse colour and the amount of light intensity
+		colour += (diffuseColour * lightIntensity);
+	}
+
+	// Saturate the final light colour.
+	colour = saturate(colour);
+
+	// Multiply the texture pixel and the final diffuse colour to get the final pixel colour result.
+	colour = colour * textureColour;
+
+	return colour;
+}
