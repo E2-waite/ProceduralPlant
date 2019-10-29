@@ -319,9 +319,37 @@ void GraphicsClass::CamRotX(float y)
 
 void GraphicsClass::WriteToFile()
 {
-	m_Stem->WriteToFile();
+	ofstream output_file;
+	output_file.open("plant.obj", std::ofstream::out | std::ofstream::trunc);
+	output_file << "g default \n";
+	output_file.close();
+	m_Stem->WriteVector();
 	for (int i = 0; i < num_leaves; i++)
 	{
-		m_Leaf[i].WriteToFile();
+		m_Leaf[i].WriteVector();
+	}
+	m_Stem->WriteTex();
+	for (int i = 0; i < num_leaves; i++)
+	{
+		m_Leaf[i].WriteTex();
+	}
+	m_Stem->WriteNorm();
+	for (int i = 0; i < num_leaves; i++)
+	{
+		m_Leaf[i].WriteNorm();
+	}
+	output_file.open("plant.obj", std::ios_base::app);
+	output_file << "s off \n";
+	output_file << "g plant \n";
+	output_file << "usemtl initialShadingGroup \n";
+	output_file.close();
+
+	int total_indices = 0;
+	m_Stem->WriteFaces(total_indices);
+	total_indices += m_Stem->GetIndCount();
+	for (int i = 0; i < num_leaves; i++)
+	{
+		m_Leaf[i].WriteFaces(total_indices);
+		total_indices += m_Leaf[i].GetIndCount();
 	}
 }

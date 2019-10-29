@@ -1,4 +1,4 @@
-﻿  Graphicsclass.cpp
+﻿  Modelclass.cpp
 c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(12): warning C4005: 'DXGI_STATUS_OCCLUDED': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55460): note: see previous definition of 'DXGI_STATUS_OCCLUDED'
 c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(13): warning C4005: 'DXGI_STATUS_CLIPPED': macro redefinition
@@ -55,8 +55,5 @@ c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(608): w
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55899): note: see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
 c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55908): note: see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(132): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(133): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(146): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(149): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\modelclass.cpp(249): warning C4101: 'i': unreferenced local variable
   DirectX Project.vcxproj -> C:\Users\Hazar\Documents\University Work\Year 3\AT\ProceduralPlant\DirectX Project\Debug\DirectX Project.exe

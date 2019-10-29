@@ -357,28 +357,54 @@ void ModelClass::UpdateMatrix()
 	m_worldMatrix = rotationMatrix * positionMatrix;
 }
 
-bool ModelClass::WriteToFile()
+bool ModelClass::WriteVector()
 {
 	ofstream output_file;
-	output_file.open("plant.txt", std::ios_base::app);
+	output_file.open("plant.obj", std::ios_base::app);
 	D3DXVECTOR4* positions;
 	D3DXVECTOR3* t_coord;
-	D3DXVECTOR3* n_positions;
+
 	
 	positions = new D3DXVECTOR4[m_vertexCount];
 	t_coord = new D3DXVECTOR3[m_vertexCount];
-	n_positions = new D3DXVECTOR3[m_vertexCount];
+
 
 	for (int i = 0; i < m_indexCount; i++)
 	{
 		D3DXVec3Transform(&positions[i], &vertices[i].position, &m_worldMatrix);
-		D3DXVec3TransformNormal(&n_positions[i], &vertices[i].normal, &m_worldMatrix);
+		output_file << "v ";
 		output_file << positions[indices[i]].x;
 		output_file << " ";
 		output_file << positions[indices[i]].y;
 		output_file << " ";
 		output_file << positions[indices[i]].z;
-		output_file << " 0.0 0.0 ";
+		output_file << "\n";
+	}
+	output_file.close();
+	return true;
+}
+bool ModelClass::WriteTex()
+{
+	ofstream output_file;
+	output_file.open("plant.obj", std::ios_base::app);
+
+	for (int i = 0; i < m_indexCount; i++)
+	{
+		output_file << "vt 0.0 0.0 \n";
+	}
+	return true;
+}
+bool ModelClass::WriteNorm()
+{
+	ofstream output_file;
+	output_file.open("plant.obj", std::ios_base::app);
+	D3DXVECTOR3* n_positions;
+	n_positions = new D3DXVECTOR3[m_vertexCount];
+
+	for (int i = 0; i < m_indexCount; i++)
+	{
+		D3DXVec3TransformNormal(&n_positions[i], &vertices[i].normal, &m_worldMatrix);
+		output_file << "vn ";
 		output_file << n_positions[indices[i]].x;
 		output_file << " ";
 		output_file << n_positions[indices[i]].y;
@@ -386,7 +412,40 @@ bool ModelClass::WriteToFile()
 		output_file << n_positions[indices[i]].z;
 		output_file << "\n";
 	}
-	output_file << "\n";
-	output_file.close();
 	return true;
+}
+
+bool ModelClass::WriteFaces(int offset)
+{
+	ofstream output_file;
+	output_file.open("plant.obj", std::ios_base::app);
+	int poly_ind = 0;
+	for (int i = 1; i <= m_indexCount; i++)
+	{
+		if (poly_ind == 0)
+		{
+			output_file << "f ";
+		}
+		output_file << i + offset;
+		output_file << "/";
+		output_file << i + offset;
+		output_file << "/";
+		output_file << i + offset;
+		output_file << " ";
+		if (poly_ind == 2)
+		{
+			output_file << "\n";
+			poly_ind = 0;
+		}
+		else
+		{
+			poly_ind++;
+		}
+	}
+	return true;
+}
+
+int ModelClass::GetIndCount()
+{
+	return m_indexCount;
 }

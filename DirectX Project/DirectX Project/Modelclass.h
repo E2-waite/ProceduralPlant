@@ -52,7 +52,11 @@ public:
 	int GetIndexCount();
 	D3DXMATRIX GetWorldMatrix();
 	ID3D11ShaderResourceView* GetTexture();
-	bool WriteToFile();
+	bool WriteVector();
+	bool WriteTex();
+	bool WriteNorm();
+	bool WriteFaces(int);
+	int GetIndCount();
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
