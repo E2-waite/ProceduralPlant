@@ -52,6 +52,7 @@ public:
 	int GetIndexCount();
 	D3DXMATRIX GetWorldMatrix();
 	ID3D11ShaderResourceView* GetTexture();
+	bool WriteToFile();
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
@@ -66,6 +67,8 @@ private:
 	TextureClass* m_Texture;
 	ModelType* m_model;
 	D3DXMATRIX m_worldMatrix;
+	VertexType* vertices;
+	unsigned long* indices;
 	float x_pos, y_pos, z_pos;
 	float x_rot, y_rot, z_rot;
 };

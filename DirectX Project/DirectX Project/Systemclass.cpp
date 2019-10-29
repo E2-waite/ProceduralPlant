@@ -137,7 +137,7 @@ bool SystemClass::Frame()
 	}
 	if (m_Input->IsKeyDown('2'))
 	{
-		//m_Graphics->LeafPos(0.5, 0, 0);
+		m_Graphics->WriteToFile();
 	}
 	if (m_Input->IsKeyDown('3'))
 	{

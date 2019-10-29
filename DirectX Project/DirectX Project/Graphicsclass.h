@@ -43,6 +43,7 @@ public:
 	void CamRotX(float);
 	void CamRotY(float);
 	bool SetupLeaves();
+	void WriteToFile();
 private:
 	bool Render(float);
 
@@ -55,5 +56,6 @@ private:
 	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
 	int num_leaves;
+
 };
 #endif

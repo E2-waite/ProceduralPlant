@@ -71,12 +71,14 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
-	result = m_Crate->Initialize(m_D3D->GetDevice(), "Data/Cube.txt", "Data/crate.dds");
+	result = m_Crate->Initialize(m_D3D->GetDevice(), "plant.txt", "Data/leaf.dds");
 	if (!result)
 	{
 		MessageBox(hwnd, "Could not initialize the model object.", "Error", MB_OK);
 		return false;
 	}
+
+	m_Crate->SetPos(5, 0, 0);
 
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass;
@@ -103,7 +105,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	// Initialize the light object.
 	m_Light->SetAmbientColour(0.3f, 0.3f, 0.3f, 0.3f);
 	m_Light->SetDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	m_Light->SetDirection(0.0f, -1.0f, 1.0f);
+	m_Light->SetDirection(0.0f, 0.0f, 1.0f);
 
 	return true;
 }
@@ -146,8 +148,8 @@ bool GraphicsClass::SetupLeaves()
 	{
 		float rot_num = rand() % 10 + -10;
 		m_Leaf[i].Initialize(m_D3D->GetDevice(), "Data/Leaf2.txt", "Data/leaf.dds");
-		m_Leaf[i].SetPos(0, -3, 0);
-		m_Leaf[i].SetRot(0, x_rot, 0);
+		m_Leaf[i].SetPos(0, 3, 0);
+		m_Leaf[i].SetRot(-20, x_rot, 0);
 		x_rot -= (360 / num_leaves) + (rand() % (50 / num_leaves) + -(50 / num_leaves));
 	}
 	return true;
@@ -240,6 +242,7 @@ bool GraphicsClass::Render(float rotation)
 {
 	D3DXMATRIX viewMatrix, projectionMatrix, worldMatrix;
 	bool result;
+	//m_Leaf[0].GetWorldMatrix() * 
 
 	// Clear the buffers to begin the scene.
 	m_D3D->BeginScene(0.1f, 0.1f, 0.1f, 1.0f);
@@ -268,10 +271,9 @@ bool GraphicsClass::Render(float rotation)
 	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Stem->GetIndexCount(), m_Stem->GetWorldMatrix(), viewMatrix,
 		projectionMatrix, m_Stem->GetTexture(), m_Light->GetDirection(), m_Light->GetAmbientColour(), m_Light->GetDiffuseColour());
 
-	m_Crate->SetPos(0, 0, 0);
-	//m_Crate->Render(m_D3D->GetDeviceContext());
-	//result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Crate->GetIndexCount(), m_Crate->GetWorldMatrix(), viewMatrix,
-	//								projectionMatrix, m_Crate->GetTexture(), m_Light->GetDirection(), m_Light->GetAmbientColour(), m_Light->GetDiffuseColour());
+	m_Crate->Render(m_D3D->GetDeviceContext());
+	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Crate->GetIndexCount(), m_Crate->GetWorldMatrix(), viewMatrix,
+									projectionMatrix, m_Crate->GetTexture(), m_Light->GetDirection(), m_Light->GetAmbientColour(), m_Light->GetDiffuseColour());
 	if (!result)
 	{
 		return false;
@@ -313,4 +315,13 @@ void GraphicsClass::CamRotY(float x)
 void GraphicsClass::CamRotX(float y)
 {
 	m_Camera->SetRotation(m_Camera->GetRotation().x, m_Camera->GetRotation().y + y, m_Camera->GetRotation().z);
+}
+
+void GraphicsClass::WriteToFile()
+{
+	m_Stem->WriteToFile();
+	for (int i = 0; i < num_leaves; i++)
+	{
+		m_Leaf[i].WriteToFile();
+	}
 }

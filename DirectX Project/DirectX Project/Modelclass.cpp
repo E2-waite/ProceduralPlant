@@ -93,8 +93,6 @@ ID3D11ShaderResourceView* ModelClass::GetTexture()
 /// Usually you would read in a model and create the buffers from that data file.
 bool ModelClass::InitializeBuffers(ID3D11Device* device)
 {
-	VertexType* vertices;
-	unsigned long* indices;
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
@@ -166,11 +164,6 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 
 	/// After vertex and index buffers have been created, delete the vertex and index arrays as they are no longer needed.
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
-	delete[] vertices;
-	vertices = 0;
-
-	delete[] indices;
-	indices = 0;
 
 	return true;
 }
@@ -191,7 +184,6 @@ void ModelClass::ShutdownBuffers()
 		m_vertexBuffer->Release();
 		m_vertexBuffer = 0;
 	}
-
 	return;
 }
 
@@ -212,7 +204,6 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
 
 	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	return;
 }
 
@@ -353,32 +344,49 @@ D3DXMATRIX ModelClass::GetWorldMatrix()
 
 void ModelClass::UpdateMatrix()
 {
-	D3DXVECTOR3 up, position, lookAt;
 	float yaw, pitch, roll;
-	D3DXMATRIX rotationMatrix;
-
-	up.x = 0.0f;
-	up.y = 1.0f;
-	up.z = 0.0f;
-
-	position.x = x_pos;
-	position.y = y_pos;
-	position.z = z_pos;
-
-	lookAt.x = 0.0f;
-	lookAt.y = 0.0f;
-	lookAt.z = 1.0f;
+	D3DXMATRIX rotationMatrix, positionMatrix;
 
 	pitch = x_rot * 0.0174532925f;
 	yaw = y_rot * 0.0174532925f;
 	roll = z_rot * 0.0174532925f;
 
 	D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, roll);
+	D3DXMatrixTranslation(&positionMatrix, x_pos, y_pos, z_pos);
 
-	D3DXVec3TransformCoord(&lookAt, &lookAt, &rotationMatrix);
-	D3DXVec3TransformCoord(&up, &up, &rotationMatrix);
+	m_worldMatrix = rotationMatrix * positionMatrix;
+}
 
-	lookAt = position + lookAt;
+bool ModelClass::WriteToFile()
+{
+	ofstream output_file;
+	output_file.open("plant.txt", std::ios_base::app);
+	D3DXVECTOR4* positions;
+	D3DXVECTOR3* t_coord;
+	D3DXVECTOR3* n_positions;
+	
+	positions = new D3DXVECTOR4[m_vertexCount];
+	t_coord = new D3DXVECTOR3[m_vertexCount];
+	n_positions = new D3DXVECTOR3[m_vertexCount];
 
-	D3DXMatrixLookAtLH(&m_worldMatrix, &position, &lookAt, &up);
+	for (int i = 0; i < m_indexCount; i++)
+	{
+		D3DXVec3Transform(&positions[i], &vertices[i].position, &m_worldMatrix);
+		D3DXVec3TransformNormal(&n_positions[i], &vertices[i].normal, &m_worldMatrix);
+		output_file << positions[indices[i]].x;
+		output_file << " ";
+		output_file << positions[indices[i]].y;
+		output_file << " ";
+		output_file << positions[indices[i]].z;
+		output_file << " 0.0 0.0 ";
+		output_file << n_positions[indices[i]].x;
+		output_file << " ";
+		output_file << n_positions[indices[i]].y;
+		output_file << " ";
+		output_file << n_positions[indices[i]].z;
+		output_file << "\n";
+	}
+	output_file << "\n";
+	output_file.close();
+	return true;
 }
