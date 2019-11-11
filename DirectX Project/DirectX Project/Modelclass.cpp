@@ -23,9 +23,14 @@ ModelClass::~ModelClass()
 }
  
 /// The Initialize function will call the initialization functions for the vertex and index buffers. 
-bool ModelClass::Initialize(ID3D11Device* device, const char* modelFilename, const char* textureFilename)
+bool ModelClass::Initialize(ID3D11Device* device, const char* modelFilename, const char* textureFilename, D3DXVECTOR3 rot, D3DXVECTOR3 pos, D3DXVECTOR3 scl)
 {
 	bool result;
+
+	start_rot = rot;
+	start_pos = pos;
+	rotation = start_rot;
+	position = start_pos;
 
 	// Load in the model data.
 	result = LoadModel(modelFilename);
@@ -228,7 +233,6 @@ bool ModelClass::LoadTexture(ID3D11Device* device, const char* filename)
 	return true;
 }
 
-// ReleaseTexture will release the texture object that was created and loaded dyrubg the LoadTexture function.
 void ModelClass::ReleaseTexture()
 {
 	// Release the texture object.
@@ -295,6 +299,8 @@ bool ModelClass::LoadModel(const char* filename)
 		fin >> m_model[i].nx >> m_model[i].ny >> m_model[i].nz;
 	}
 
+	fin >> num_polygons;
+
 	fin.close();
 
 	return true;
@@ -321,9 +327,17 @@ bool ModelClass::SetPos(float x, float y, float z)
 
 bool ModelClass::SetRot(float x, float y, float z)
 {
-	x_rot = x;
-	y_rot = y;
-	z_rot = z;
+	rotation.x = x;
+	rotation.y = y;
+	rotation.z = z;
+	return true;
+}
+
+bool ModelClass::SetScale(float x, float y, float z)
+{
+	x_scl = x;
+	y_scl = y;
+	z_scl = z;
 	return true;
 }
 
@@ -334,7 +348,7 @@ D3DXVECTOR3 ModelClass::GetPosition()
 
 D3DXVECTOR3 ModelClass::GetRotation()
 {
-	return D3DXVECTOR3(x_rot, y_rot, z_rot);
+	return start_rot;
 }
 
 D3DXMATRIX ModelClass::GetWorldMatrix()
@@ -345,16 +359,17 @@ D3DXMATRIX ModelClass::GetWorldMatrix()
 void ModelClass::UpdateMatrix()
 {
 	float yaw, pitch, roll;
-	D3DXMATRIX rotationMatrix, positionMatrix;
+	D3DXMATRIX rotationMatrix, positionMatrix, scaleMatrix;
 
-	pitch = x_rot * 0.0174532925f;
-	yaw = y_rot * 0.0174532925f;
-	roll = z_rot * 0.0174532925f;
+	pitch = rotation.x * 0.0174532925f;
+	yaw = rotation.y * 0.0174532925f;
+	roll = rotation.z * 0.0174532925f;
 
 	D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, roll);
-	D3DXMatrixTranslation(&positionMatrix, x_pos, y_pos, z_pos);
+	D3DXMatrixTranslation(&positionMatrix, position.x, position.y, position.z);
+	D3DXMatrixScaling(&scaleMatrix, x_scl, y_scl, z_scl);
 
-	m_worldMatrix = rotationMatrix * positionMatrix;
+	m_worldMatrix = scaleMatrix * rotationMatrix * positionMatrix;
 }
 
 bool ModelClass::WriteVector()
@@ -367,11 +382,13 @@ bool ModelClass::WriteVector()
 	
 	positions = new D3DXVECTOR4[m_vertexCount];
 	t_coord = new D3DXVECTOR3[m_vertexCount];
-
+	for (int i = 0; i < m_vertexCount; i++)
+	{
+		D3DXVec3Transform(&positions[i], &vertices[i].position, &m_worldMatrix);
+	}
 
 	for (int i = 0; i < m_indexCount; i++)
 	{
-		D3DXVec3Transform(&positions[i], &vertices[i].position, &m_worldMatrix);
 		output_file << "v ";
 		output_file << positions[indices[i]].x;
 		output_file << " ";
@@ -380,6 +397,7 @@ bool ModelClass::WriteVector()
 		output_file << positions[indices[i]].z;
 		output_file << "\n";
 	}
+	output_file << "\n";
 	output_file.close();
 	return true;
 }
@@ -387,10 +405,21 @@ bool ModelClass::WriteTex()
 {
 	ofstream output_file;
 	output_file.open("plant.obj", std::ios_base::app);
+	D3DXVECTOR4* tv_positions;
+	tv_positions = new D3DXVECTOR4[m_vertexCount];
+	for (int i = 0; i < m_vertexCount; i++)
+	{
+		//D3DXVec2TransformCoord(&tv_positions[i], &vertices[i].texture, &m_worldMatrix);
+		D3DXVec2Transform(&tv_positions[i], &vertices[i].texture, &m_worldMatrix);
+	}
 
 	for (int i = 0; i < m_indexCount; i++)
-	{
-		output_file << "vt 0.0 0.0 \n";
+	{			
+		output_file << "vt ";
+		output_file << vertices[indices[i]].texture.x;
+		output_file << " ";
+		output_file << vertices[indices[i]].texture.y;
+		output_file << "\n";
 	}
 	return true;
 }
@@ -401,9 +430,13 @@ bool ModelClass::WriteNorm()
 	D3DXVECTOR3* n_positions;
 	n_positions = new D3DXVECTOR3[m_vertexCount];
 
-	for (int i = 0; i < m_indexCount; i++)
+	for (int i = 0; i < m_vertexCount; i++)
 	{
 		D3DXVec3TransformNormal(&n_positions[i], &vertices[i].normal, &m_worldMatrix);
+	}
+
+	for (int i = 0; i < m_indexCount; i++)
+	{		
 		output_file << "vn ";
 		output_file << n_positions[indices[i]].x;
 		output_file << " ";
@@ -415,37 +448,31 @@ bool ModelClass::WriteNorm()
 	return true;
 }
 
-bool ModelClass::WriteFaces(int offset)
+int ModelClass::WriteFaces(int offset)
 {
 	ofstream output_file;
 	output_file.open("plant.obj", std::ios_base::app);
-	int poly_ind = 0;
-	for (int i = 1; i <= m_indexCount; i++)
+	int poly_ind = 1;
+	for (int i = 0; i < num_polygons; i++)
 	{
-		if (poly_ind == 0)
+		output_file << "f ";
+		for (int j = 0; j < 3; j++)
 		{
-			output_file << "f ";
-		}
-		output_file << i + offset;
-		output_file << "/";
-		output_file << i + offset;
-		output_file << "/";
-		output_file << i + offset;
-		output_file << " ";
-		if (poly_ind == 2)
-		{
-			output_file << "\n";
-			poly_ind = 0;
-		}
-		else
-		{
+			output_file << poly_ind + offset;
+			output_file << "/";
+			output_file << poly_ind + offset;
+			output_file << "/";
+			output_file << poly_ind + offset;
+			output_file << " ";
 			poly_ind++;
 		}
+		output_file << "\n";
 	}
-	return true;
+	return m_indexCount;
 }
 
 int ModelClass::GetIndCount()
 {
 	return m_indexCount;
 }
+

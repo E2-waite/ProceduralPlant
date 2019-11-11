@@ -14,7 +14,6 @@
 #include <fstream>
 using namespace std;
 #include "Textureclass.h"
-
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: ModelClass
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,11 +40,12 @@ public:
 	ModelClass();
 	ModelClass(const ModelClass&);
 	~ModelClass();
-	bool Initialize(ID3D11Device*, const char*, const char*);
+	bool Initialize(ID3D11Device*, const char*, const char*, D3DXVECTOR3 rot, D3DXVECTOR3 pos, D3DXVECTOR3 scl);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 	bool SetPos(float, float, float);
 	bool SetRot(float, float, float);
+	bool SetScale(float, float, float);
 	D3DXVECTOR3 GetPosition();
 	D3DXVECTOR3 GetRotation();
 	void UpdateMatrix();
@@ -55,7 +55,7 @@ public:
 	bool WriteVector();
 	bool WriteTex();
 	bool WriteNorm();
-	bool WriteFaces(int);
+	int WriteFaces(int);
 	int GetIndCount();
 private:
 	bool InitializeBuffers(ID3D11Device*);
@@ -75,6 +75,12 @@ private:
 	unsigned long* indices;
 	float x_pos, y_pos, z_pos;
 	float x_rot, y_rot, z_rot;
+	D3DXVECTOR3 start_rot;
+	D3DXVECTOR3 rotation;
+	D3DXVECTOR3 start_pos;
+	D3DXVECTOR3 position;
+	float x_scl = 1, y_scl = 1, z_scl = 1;
+	int num_polygons;
 };
 
 #endif

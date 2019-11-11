@@ -120,9 +120,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bitmapclass.cpp" />
     <ClCompile Include="Cameraclass.cpp" />
     <ClCompile Include="D3dclass.cpp" />
     <ClCompile Include="Graphicsclass.cpp" />
+    <ClCompile Include="IMGUI\imgui.cpp" />
+    <ClCompile Include="IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="IMGUI\imgui_impl_dx11.cpp" />
+    <ClCompile Include="IMGUI\imgui_impl_win32.cpp" />
+    <ClCompile Include="IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="Lightclass.cpp" />
     <ClCompile Include="Lightshaderclass.cpp" />
@@ -130,21 +136,34 @@
     <ClCompile Include="Modelclass.cpp" />
     <ClCompile Include="Systemclass.cpp" />
     <ClCompile Include="Textureclass.cpp" />
+    <ClCompile Include="Textureshaderclass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bitmapclass.h" />
     <ClInclude Include="Cameraclass.h" />
     <ClInclude Include="D3dclass.h" />
     <ClInclude Include="Graphicsclass.h" />
+    <ClInclude Include="IMGUI\imconfig.h" />
+    <ClInclude Include="IMGUI\imgui.h" />
+    <ClInclude Include="IMGUI\imgui_impl_dx11.h" />
+    <ClInclude Include="IMGUI\imgui_impl_win32.h" />
+    <ClInclude Include="IMGUI\imgui_internal.h" />
+    <ClInclude Include="IMGUI\imstb_rectpack.h" />
+    <ClInclude Include="IMGUI\imstb_textedit.h" />
+    <ClInclude Include="IMGUI\imstb_truetype.h" />
     <ClInclude Include="Inputclass.h" />
     <ClInclude Include="Lightclass.h" />
     <ClInclude Include="Lightshaderclass.h" />
     <ClInclude Include="Modelclass.h" />
     <ClInclude Include="Systemclass.h" />
     <ClInclude Include="Textureclass.h" />
+    <ClInclude Include="Textureshaderclass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Light.ps" />
     <None Include="Light.vs" />
+    <None Include="Texture.ps" />
+    <None Include="Texture.vs" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Cube.txt" />
