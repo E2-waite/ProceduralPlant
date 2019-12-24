@@ -57,10 +57,10 @@ c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): w
   c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55908): note: see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
 c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(172): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(173): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(199): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(202): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(210): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(209): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(212): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(216): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(419): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(220): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(222): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(226): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(429): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   DirectX Project.vcxproj -> C:\Users\Hazar\Documents\University Work\Year 3\AT\ProceduralPlant\DirectX Project\Debug\DirectX Project.exe

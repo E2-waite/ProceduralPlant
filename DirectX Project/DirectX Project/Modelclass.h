@@ -57,6 +57,7 @@ public:
 	bool WriteNorm();
 	int WriteFaces(int);
 	int GetIndCount();
+	float GetHeight();
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
@@ -81,6 +82,7 @@ private:
 	D3DXVECTOR3 position;
 	float x_scl = 1, y_scl = 1, z_scl = 1;
 	int num_polygons;
+	float height = 0;
 };
 
 #endif

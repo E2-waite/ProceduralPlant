@@ -66,7 +66,7 @@ private:
 	BitmapClass* m_Bitmap;
 	int num_leaves = 4;
 	int num_petals = 5;
-	int num_stems = 2;
+	int num_stems = 3;
 	int* reset_leaves;
 	int reset_petals;
 	int reset_stems;

@@ -189,12 +189,22 @@ bool GraphicsClass::SetupPlant()
 	}
 
 	float stem_pos = 0;
+	float rot_swap = 45;
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].Initialize(m_D3D->GetDevice(), "Data/Stem.txt", "Data/leaf.dds",  D3DXVECTOR3(0,0,0), D3DXVECTOR3(0, stem_pos, 0),
-			D3DXVECTOR3(0,0,0));
-		stem_pos += 3;
-	}
+		if (i >= 1)
+		{
+			m_Stem[i].Initialize(m_D3D->GetDevice(), "Data/Stem.txt", "Data/leaf.dds", D3DXVECTOR3(0, 0, rot_swap), D3DXVECTOR3(0, stem_pos, 0),
+				D3DXVECTOR3(0, 0, 0));
+			rot_swap = -rot_swap;
+		}
+		else
+		{
+			m_Stem[i].Initialize(m_D3D->GetDevice(), "Data/Stem.txt", "Data/leaf.dds", D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, stem_pos, 0),
+				D3DXVECTOR3(0, 0, 0));
+			stem_pos += m_Stem[i].GetHeight();
+		}
+	} 
 
 	float x_rot = rand() % 360 + 0;
 	for (int i = 0; i < num_leaves; i++)
