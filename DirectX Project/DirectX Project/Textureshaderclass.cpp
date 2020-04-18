@@ -1,6 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-// Filename: textureshaderclass.cpp
-////////////////////////////////////////////////////////////////////////////////
 #include "textureshaderclass.h"
 
 TextureShaderClass::TextureShaderClass()
@@ -41,8 +38,8 @@ void TextureShaderClass::Shutdown()
 	return;
 }
 
-bool TextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, 
-								D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* texture)
+bool TextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
+	XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture)
 {
 	bool result;
 
@@ -81,7 +78,7 @@ bool TextureShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const
 
 	//Compile the vertex shader code.
 	result = D3DX11CompileFromFile(vsFilename, NULL, NULL, "TextureVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL,
-									&vertexShaderBuffer, &errorMessage, NULL);
+		&vertexShaderBuffer, &errorMessage, NULL);
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have writen something to the error message.
@@ -100,7 +97,7 @@ bool TextureShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const
 
 	//compile the pixel shader code.
 	result = D3DX11CompileFromFile(psFilename, NULL, NULL, "TexturePixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL,
-									&pixelShaderBuffer, &errorMessage, NULL);
+		&pixelShaderBuffer, &errorMessage, NULL);
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have written something to the error message.
@@ -144,7 +141,7 @@ bool TextureShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const
 	polygonLayout[1].SemanticName = "TEXCOORD";
 	polygonLayout[1].SemanticIndex = 0;
 	polygonLayout[1].Format = DXGI_FORMAT_R32G32_FLOAT;
-	polygonLayout[1].InputSlot = 0; 
+	polygonLayout[1].InputSlot = 0;
 	polygonLayout[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
 	polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[1].InstanceDataStepRate = 0;
@@ -219,7 +216,7 @@ bool TextureShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, const
 void TextureShaderClass::ShutdownShader()
 {
 	//Releases the new sampler state that was created during initialization.
-	
+
 	// Release the sampler state.
 	if (m_sampleState)
 	{
@@ -263,7 +260,7 @@ void TextureShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND
 {
 	char* compileErrors;
 	unsigned long bufferSize, i;
-	ofstream fout;
+	std::ofstream fout;
 
 	// Get a pointer to the error message text buffer.
 	compileErrors = (char*)(errorMessage->GetBufferPointer());
@@ -295,8 +292,8 @@ void TextureShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND
 
 // Takes in a pointer to a texture resource then assigns it to the shader using the new texture resource pointer.
 // Texture must be set before rendering of the buffer occurs.
-bool TextureShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix,
-											D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* texture)
+bool TextureShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
+	XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -304,9 +301,9 @@ bool TextureShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext,
 	unsigned int bufferNumber;
 
 	// Transpose the matrices to prepare them for the shader
-	D3DXMatrixTranspose(&worldMatrix, &worldMatrix);
-	D3DXMatrixTranspose(&viewMatrix, &viewMatrix);
-	D3DXMatrixTranspose(&projectionMatrix, &projectionMatrix);
+	worldMatrix = XMMatrixTranspose(worldMatrix);
+	viewMatrix = XMMatrixTranspose(viewMatrix);
+	projectionMatrix = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constraint buffer so it can be written to.
 	result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
@@ -353,6 +350,6 @@ void TextureShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, int in
 
 	// Render the triangle.
 	deviceContext->DrawIndexed(indexCount, 0, 0);
-	 
+
 	return;
 }

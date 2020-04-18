@@ -11,12 +11,13 @@
 #include <time.h>
 #include "d3dclass.h"
 #include "cameraclass.h"
-#include "modelclass.h"
+#include "model.h"
 #include "Lightshaderclass.h"
 #include "Textureshaderclass.h"
 #include "Lightclass.h"
 #include "bitmapclass.h"
-
+#include "Plant.h"
+#include "Types.h"
 #include "imconfig.h"
 #include "IMGUI\\imgui.h"
 #include "IMGUI\\imgui_impl_win32.h"
@@ -48,28 +49,21 @@ public:
 	void CamPosZ(float);
 	void CamRotX(float);
 	void CamRotY(float);
-	bool SetupPlant();
-	void WriteToFile();
 private:
 	bool Render(float);
 
 private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
-	ModelClass* m_Leaf;
-	ModelClass* m_Stem;
-	ModelClass* m_Petal;
-	ModelClass* m_Crate;
+
 	LightShaderClass* m_LightShader;
 	TextureShaderClass* m_TextureShader;
 	LightClass* m_Light;
 	BitmapClass* m_Bitmap;
-	int num_leaves = 4;
-	int num_petals = 5;
-	int num_stems = 3;
+	Plant* flower;
 	int* reset_leaves;
 	int reset_petals;
 	int reset_stems;
-	string model_file;
+	std::string model_file;
 };
 #endif

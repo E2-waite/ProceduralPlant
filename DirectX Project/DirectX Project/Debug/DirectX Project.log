@@ -1,66 +1,71 @@
 ﻿  Graphicsclass.cpp
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(12): warning C4005: 'DXGI_STATUS_OCCLUDED': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55460): note: see previous definition of 'DXGI_STATUS_OCCLUDED'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(13): warning C4005: 'DXGI_STATUS_CLIPPED': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55469): note: see previous definition of 'DXGI_STATUS_CLIPPED'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(14): warning C4005: 'DXGI_STATUS_NO_REDIRECTION': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55478): note: see previous definition of 'DXGI_STATUS_NO_REDIRECTION'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(15): warning C4005: 'DXGI_STATUS_NO_DESKTOP_ACCESS': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55487): note: see previous definition of 'DXGI_STATUS_NO_DESKTOP_ACCESS'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(16): warning C4005: 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55496): note: see previous definition of 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(17): warning C4005: 'DXGI_STATUS_MODE_CHANGED': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55505): note: see previous definition of 'DXGI_STATUS_MODE_CHANGED'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(18): warning C4005: 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55514): note: see previous definition of 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(21): warning C4005: 'DXGI_ERROR_INVALID_CALL': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55529): note: see previous definition of 'DXGI_ERROR_INVALID_CALL'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(22): warning C4005: 'DXGI_ERROR_NOT_FOUND': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55538): note: see previous definition of 'DXGI_ERROR_NOT_FOUND'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(23): warning C4005: 'DXGI_ERROR_MORE_DATA': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55547): note: see previous definition of 'DXGI_ERROR_MORE_DATA'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(24): warning C4005: 'DXGI_ERROR_UNSUPPORTED': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55556): note: see previous definition of 'DXGI_ERROR_UNSUPPORTED'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(25): warning C4005: 'DXGI_ERROR_DEVICE_REMOVED': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55565): note: see previous definition of 'DXGI_ERROR_DEVICE_REMOVED'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(26): warning C4005: 'DXGI_ERROR_DEVICE_HUNG': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55574): note: see previous definition of 'DXGI_ERROR_DEVICE_HUNG'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(27): warning C4005: 'DXGI_ERROR_DEVICE_RESET': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55584): note: see previous definition of 'DXGI_ERROR_DEVICE_RESET'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(28): warning C4005: 'DXGI_ERROR_WAS_STILL_DRAWING': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55593): note: see previous definition of 'DXGI_ERROR_WAS_STILL_DRAWING'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(29): warning C4005: 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55603): note: see previous definition of 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(30): warning C4005: 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55612): note: see previous definition of 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(31): warning C4005: 'DXGI_ERROR_DRIVER_INTERNAL_ERROR': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55622): note: see previous definition of 'DXGI_ERROR_DRIVER_INTERNAL_ERROR'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(32): warning C4005: 'DXGI_ERROR_NONEXCLUSIVE': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55631): note: see previous definition of 'DXGI_ERROR_NONEXCLUSIVE'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(33): warning C4005: 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55640): note: see previous definition of 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(34): warning C4005: 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55650): note: see previous definition of 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(35): warning C4005: 'DXGI_ERROR_REMOTE_OUTOFMEMORY': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55659): note: see previous definition of 'DXGI_ERROR_REMOTE_OUTOFMEMORY'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(917): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55923): note: see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(918): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55932): note: see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(919): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55942): note: see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(920): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55951): note: see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(608): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55899): note: see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
-c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\winerror.h(55908): note: see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(172): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(173): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(209): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(212): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(220): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(222): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(226): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-c:\users\hazar\documents\university work\year 3\at\proceduralplant\directx project\directx project\graphicsclass.cpp(429): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  DirectX Project.vcxproj -> C:\Users\Hazar\Documents\University Work\Year 3\AT\ProceduralPlant\DirectX Project\Debug\DirectX Project.exe
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\dxgi.h(44,30): warning C4091: 'typedef ': ignored on left of 'IDXGIObject' when no variable is declared
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(917,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56303): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(918,1): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56312): message : see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(919,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56322): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(920,1): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56331): message : see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56279): message : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56288): message : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(33,22): warning C4316: 'D3DClass': object allocated on the heap may not be aligned 16
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(61,28): warning C4316: 'CameraClass': object allocated on the heap may not be aligned 16
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(267,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(267,57): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Plant.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\dxgi.h(44,30): warning C4091: 'typedef ': ignored on left of 'IDXGIObject' when no variable is declared
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(917,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56303): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(918,1): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56312): message : see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(919,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56322): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(920,1): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56331): message : see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56279): message : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56288): message : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(42,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(46,31): warning C4316: 'Model': object allocated on the heap may not be aligned 16
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(47,32): warning C4316: 'Model': object allocated on the heap may not be aligned 16
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(48,33): warning C4316: 'Model': object allocated on the heap may not be aligned 16
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(68,14): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(71,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(78,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(80,19): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(84,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Systemclass.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\dxgi.h(44,30): warning C4091: 'typedef ': ignored on left of 'IDXGIObject' when no variable is declared
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(917,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56303): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(918,1): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56312): message : see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(919,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56322): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(920,1): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56331): message : see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56279): message : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56288): message : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\dxgi.h(44,30): warning C4091: 'typedef ': ignored on left of 'IDXGIObject' when no variable is declared
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(917,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56303): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(918,1): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56312): message : see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(919,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56322): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(920,1): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56331): message : see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56279): message : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56288): message : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+  Generating Code...
+  DirectX Project.vcxproj -> D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\Debug\DirectX Project.exe
