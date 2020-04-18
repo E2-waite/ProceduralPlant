@@ -12,7 +12,6 @@ GraphicsClass::GraphicsClass()
 	m_TextureShader = 0;
 	m_Light = 0;
 	m_Bitmap = 0;
-	reset_leaves = 0;
 }
 
 
@@ -148,11 +147,6 @@ void GraphicsClass::Shutdown()
 		m_Light = 0;
 	}
 
-	if (reset_leaves)
-	{
-		delete reset_leaves;
-	}
-
 	// Release the light shader object.
 	if (m_LightShader)
 	{
@@ -209,7 +203,7 @@ bool GraphicsClass::Frame(int mouse_x, int mouse_y)
 	{
 		return false;
 	}
-
+	flower->Update();
 
 	return true;
 }
@@ -242,16 +236,23 @@ bool GraphicsClass::Render(float rotation)
 
 	flower->Render(m_D3D->GetDeviceContext(), m_LightShader, m_Light, viewMatrix, projectionMatrix);
 
-	static float transformOffset[3] = { 0, 0, 0 };
-
-	flower->SetRot(LEAF, XMFLOAT3{ transformOffset[0] , transformOffset[1] , transformOffset[2] });
-
+	static float leaf_rot[3] = { 0, 0, 0 };
+	static float leaf_scl[3] = { 1,1,1 };
+	static float petal_rot[3] = { 0, 0, 0 };
+	static float petal_scl[3] = { 1,1,1 };
+	static float stem_scl[3] = { 1,1,1 };
 	if (!reset_leaves)
 	{
-		reset_leaves = new int(0);
+		reset_leaves = new int(4);
 	}
-
-	int leaves_num = (int)reset_leaves;
+	if (!reset_petals)
+	{
+		reset_petals = new int(5);
+	}
+	if (!reset_stems)
+	{
+		reset_stems = new int(2);
+	}
 
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
@@ -263,8 +264,15 @@ bool GraphicsClass::Render(float rotation)
 	}
 	ImGui::SameLine();
 	ImGui::Text("Refreshes Plant Setup");
-	ImGui::DragFloat3("Leaf Rotation", transformOffset, 0.1f, -45.0f, 45.0f);
+
 	ImGui::DragInt("Number of Leaves", reset_leaves, 0.1f, 0.0f, 5.0f);
+	ImGui::DragFloat3("Leaf Rotation", leaf_rot, 0.1f, -45.0f, 45.0f);
+	ImGui::DragFloat3("Leaf Scale", leaf_scl, 0.1f, 1.0f, 3.0f);
+	ImGui::DragInt("Number of Petals", reset_petals, 0.1f, 3.0f, 7.0f);
+	ImGui::DragFloat3("Petal Rotation", petal_rot, 0.1f, 0.0f, 360.0f);
+	ImGui::DragFloat3("Petal Scale", petal_scl, 0.1f, 1.0f, 3.0f);
+	ImGui::DragInt("Number of Stems", reset_stems, 0.1f, 1.0f, 5.0f);
+	ImGui::DragFloat3("Stem Scale", stem_scl, 0.1f, 0.1f, 3.0f);
 	if (ImGui::Button("Write to file"))
 	{
 		flower->WriteToFile();
@@ -272,6 +280,17 @@ bool GraphicsClass::Render(float rotation)
 	ImGui::End();
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	flower->SetNum(m_D3D->GetDevice(), Element::LEAF, reset_leaves);
+	flower->SetNum(m_D3D->GetDevice(), Element::PETAL, reset_petals);
+	flower->SetNum(m_D3D->GetDevice(), Element::STEM, reset_stems);
+
+	flower->SetRot(Element::LEAF, XMFLOAT3{ leaf_rot[0] , leaf_rot[1] , leaf_rot[2] });
+	flower->SetRot(Element::PETAL, XMFLOAT3{ petal_rot[0] , petal_rot[1] , petal_rot[2] });
+
+	flower->SetScl(Element::LEAF, XMFLOAT3{ leaf_scl[0] , leaf_scl[1] , leaf_scl[2] });
+	flower->SetScl(Element::PETAL, XMFLOAT3{ petal_scl[0] , petal_scl[1] , petal_scl[2] });
+	flower->SetScl(Element::STEM, XMFLOAT3{ stem_scl[0] , stem_scl[1] , stem_scl[2] });
 
 	// Present the rendered scene to the screen
 	m_D3D->EndScene();

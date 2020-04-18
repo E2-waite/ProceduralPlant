@@ -8,12 +8,14 @@ class Plant
 public:
 	Plant();
 	~Plant();
-	void Setup(ID3D11Device*);
+	void Setup(ID3D11Device*, int* = NULL, int* = NULL, int* = NULL);
 	void Shutdown();
 	void Update();
 	void Render(ID3D11DeviceContext*, LightShaderClass*, LightClass*, XMMATRIX view_matrix, XMMATRIX projection_matrix);
 	void WriteToFile();
-	void SetRot(Element element, XMFLOAT3);
+	void SetRot(Element, XMFLOAT3);
+	void SetScl(Element, XMFLOAT3);
+	void SetNum(ID3D11Device* device, Element, int*);
 	XMFLOAT3 GetCentre();
 private:
 	Model* m_Leaf;
@@ -21,6 +23,7 @@ private:
 	Model* m_Petal;
 	int num_leaves = 4;
 	int num_petals = 5;
-	int num_stems = 3;
+	int num_stems = 2;
+	bool setting_up = false;
 };
 

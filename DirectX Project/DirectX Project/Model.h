@@ -33,11 +33,10 @@ public:
 	bool Initialize(ID3D11Device*, const char*, const char*, XMFLOAT3 rot, XMFLOAT3 pos, XMFLOAT3 scl);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
-	bool SetPos(float, float, float);
-	bool SetRot(float, float, float);
-	bool SetScale(float, float, float);
-	XMFLOAT3 GetPosition();
-	XMFLOAT3 GetRotation();
+	XMFLOAT3& Position();
+	XMFLOAT3& Rotation();
+	XMFLOAT3 StartRot();
+	XMFLOAT3& Scale();
 	void UpdateMatrix();
 	int GetIndexCount();
 	XMMATRIX GetWorldMatrix();
@@ -70,7 +69,7 @@ private:
 	XMFLOAT3 rotation;
 	XMFLOAT3 start_pos;
 	XMFLOAT3 position;
-	float x_scl = 1, y_scl = 1, z_scl = 1;
+	XMFLOAT3 scale= XMFLOAT3(1,1,1);
 	int num_polygons;
 	float height = 0;
 };

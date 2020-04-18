@@ -1,11 +1,11 @@
 #pragma once
 
-enum Type
+enum class Type
 {
 	FLOWER,
 	BUSH
 };
-enum Element
+enum class Element
 {
 	PETAL,
 	STEM,

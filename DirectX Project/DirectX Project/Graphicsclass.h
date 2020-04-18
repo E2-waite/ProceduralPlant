@@ -55,15 +55,14 @@ private:
 private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
-
 	LightShaderClass* m_LightShader;
 	TextureShaderClass* m_TextureShader;
 	LightClass* m_Light;
 	BitmapClass* m_Bitmap;
 	Plant* flower;
 	int* reset_leaves;
-	int reset_petals;
-	int reset_stems;
+	int* reset_petals;
+	int* reset_stems;
 	std::string model_file;
 };
 #endif

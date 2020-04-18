@@ -321,38 +321,24 @@ void Model::ReleaseModel()
 	return;
 }
 
-bool Model::SetPos(float x, float y, float z)
+XMFLOAT3& Model::Position()
 {
-	x_pos = x;
-	y_pos = y;
-	z_pos = z;
-	return true;
+	return position;
 }
 
-bool Model::SetRot(float x, float y, float z)
+XMFLOAT3& Model::Rotation()
 {
-	rotation.x = x;
-	rotation.y = y;
-	rotation.z = z;
-	return true;
+	return rotation;
 }
 
-bool Model::SetScale(float x, float y, float z)
-{
-	x_scl = x;
-	y_scl = y;
-	z_scl = z;
-	return true;
-}
-
-XMFLOAT3 Model::GetPosition()
-{
-	return XMFLOAT3(x_pos, y_pos, z_pos);
-}
-
-XMFLOAT3 Model::GetRotation()
+XMFLOAT3 Model::StartRot()
 {
 	return start_rot;
+}
+
+XMFLOAT3& Model::Scale()
+{
+	return scale;
 }
 
 XMMATRIX Model::GetWorldMatrix()
@@ -372,7 +358,7 @@ void Model::UpdateMatrix()
 
 	rotationMatrix = XMMatrixRotationRollPitchYaw(roll, pitch, yaw);
 	positionMatrix = XMMatrixTranslation(position.x, position.y, position.z);
-	scaleMatrix = XMMatrixScaling(x_scl, y_scl, z_scl);
+	scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
 
 	m_worldMatrix = scaleMatrix * rotationMatrix * positionMatrix;
 }
@@ -478,5 +464,5 @@ int Model::GetIndCount()
 
 float Model::GetHeight()
 {
-	return height * y_scl;
+	return height;
 }
