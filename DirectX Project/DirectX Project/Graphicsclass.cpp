@@ -36,8 +36,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
-	
-
 	// Initialize the Direct3D object
 	result = m_D3D->Initialize(screenWidth, screenHeight, VSYNC_ENABLED, hwnd, FULL_SCREEN, SCREEN_DEPTH, SCREEN_NEAR);
 
@@ -234,12 +232,24 @@ bool GraphicsClass::Render(float rotation)
 	m_D3D->GetProjectionMatrix(projectionMatrix);
 	m_D3D->GetOrthoMatrix(orthoMatrix);						
 
-	flower->Render(m_D3D->GetDeviceContext(), m_LightShader, m_Light, viewMatrix, projectionMatrix);
+	if (type == Type::FLOWER)
+	{
+		flower->Render(m_D3D->GetDeviceContext(), m_LightShader, m_Light, viewMatrix, projectionMatrix);
+	}
 
+	GUI();
+
+	// Present the rendered scene to the screen
+	m_D3D->EndScene();
+	return true;
+}
+
+void GraphicsClass::GUI()
+{
 	static float leaf_rot[3] = { 0, 0, 0 };
 	static float leaf_scl[3] = { 1,1,1 };
 	static float petal_rot[3] = { 0, 0, 0 };
-	static float petal_scl[3] = { 1,1,1 };
+	static float petal_scl[2] = { 1,1 };
 	static float stem_scl[3] = { 1,1,1 };
 	if (!reset_leaves)
 	{
@@ -254,32 +264,44 @@ bool GraphicsClass::Render(float rotation)
 		reset_stems = new int(2);
 	}
 
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	ImGui::Begin("Test");
-	if (ImGui::Button("Refresh"))
-	{
-		flower->Setup(m_D3D->GetDevice());
-	}
-	ImGui::SameLine();
-	ImGui::Text("Refreshes Plant Setup");
+	std::string texture_path;
 
-	ImGui::DragInt("Number of Leaves", reset_leaves, 0.1f, 0.0f, 5.0f);
-	ImGui::DragFloat3("Leaf Rotation", leaf_rot, 0.1f, -45.0f, 45.0f);
-	ImGui::DragFloat3("Leaf Scale", leaf_scl, 0.1f, 1.0f, 3.0f);
-	ImGui::DragInt("Number of Petals", reset_petals, 0.1f, 3.0f, 7.0f);
-	ImGui::DragFloat3("Petal Rotation", petal_rot, 0.1f, 0.0f, 360.0f);
-	ImGui::DragFloat3("Petal Scale", petal_scl, 0.1f, 1.0f, 3.0f);
-	ImGui::DragInt("Number of Stems", reset_stems, 0.1f, 1.0f, 5.0f);
-	ImGui::DragFloat3("Stem Scale", stem_scl, 0.1f, 0.1f, 3.0f);
-	if (ImGui::Button("Write to file"))
+	if (type == Type::FLOWER)
 	{
-		flower->WriteToFile();
+		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+		ImGui::Begin("Test");
+		if (ImGui::Button("Bush"))
+		{
+			type = Type::BUSH;
+		}
+		ImGui::DragInt("Number of Leaves", reset_leaves, 0.1f, 0.0f, 5.0f);
+		ImGui::DragFloat3("Leaf Rotation", leaf_rot, 0.1f, -45.0f, 45.0f);
+		ImGui::DragFloat3("Leaf Scale", leaf_scl, 0.1f, 1.0f, 3.0f);
+		ImGui::DragInt("Number of Petals", reset_petals, 0.1f, 3.0f, 7.0f);
+		ImGui::DragFloat3("Petal Rotation", petal_rot, 0.1f, 0.0f, 360.0f);
+		ImGui::DragFloat2("Petal Scale", petal_scl, 0.1f, 1.0f, 3.0f);
+		ImGui::DragInt("Number of Stems", reset_stems, 0.1f, 1.0f, 5.0f);
+		ImGui::DragFloat3("Stem Scale", stem_scl, 0.1f, 0.1f, 3.0f);
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	}
-	ImGui::End();
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	else
+	{
+		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+		ImGui::Begin("Test");
+		if (ImGui::Button("Flower"))
+		{
+			type = Type::FLOWER;
+		}
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	}
 
 	flower->SetNum(m_D3D->GetDevice(), Element::LEAF, reset_leaves);
 	flower->SetNum(m_D3D->GetDevice(), Element::PETAL, reset_petals);
@@ -289,12 +311,8 @@ bool GraphicsClass::Render(float rotation)
 	flower->SetRot(Element::PETAL, XMFLOAT3{ petal_rot[0] , petal_rot[1] , petal_rot[2] });
 
 	flower->SetScl(Element::LEAF, XMFLOAT3{ leaf_scl[0] , leaf_scl[1] , leaf_scl[2] });
-	flower->SetScl(Element::PETAL, XMFLOAT3{ petal_scl[0] , petal_scl[1] , petal_scl[2] });
+	flower->SetScl(Element::PETAL, XMFLOAT3{ petal_scl[0] , petal_scl[1] , 1 });
 	flower->SetScl(Element::STEM, XMFLOAT3{ stem_scl[0] , stem_scl[1] , stem_scl[2] });
-
-	// Present the rendered scene to the screen
-	m_D3D->EndScene();
-	return true;
 }
 
 void GraphicsClass::SetCamPos(float x, float y, float z)

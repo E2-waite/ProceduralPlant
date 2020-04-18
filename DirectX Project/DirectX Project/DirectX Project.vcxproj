@@ -79,6 +79,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -126,6 +129,7 @@
     <ClCompile Include="D3dclass.cpp" />
     <ClCompile Include="Graphicsclass.cpp" />
     <ClCompile Include="IMGUI\imgui.cpp" />
+    <ClCompile Include="IMGUI\imgui_demo.cpp" />
     <ClCompile Include="IMGUI\imgui_draw.cpp" />
     <ClCompile Include="IMGUI\imgui_impl_dx11.cpp" />
     <ClCompile Include="IMGUI\imgui_impl_win32.cpp" />
@@ -150,6 +154,7 @@
     <ClInclude Include="IMGUI\imgui_impl_dx11.h" />
     <ClInclude Include="IMGUI\imgui_impl_win32.h" />
     <ClInclude Include="IMGUI\imgui_internal.h" />
+    <ClInclude Include="IMGUI\imgui_user.h" />
     <ClInclude Include="IMGUI\imstb_rectpack.h" />
     <ClInclude Include="IMGUI\imstb_textedit.h" />
     <ClInclude Include="IMGUI\imstb_truetype.h" />
@@ -164,6 +169,7 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="IMGUI\imgui_user.inl" />
     <None Include="Light.ps" />
     <None Include="Light.vs" />
     <None Include="Texture.ps" />

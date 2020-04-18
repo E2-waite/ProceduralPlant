@@ -13,8 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="IMGUI">
-      <UniqueIdentifier>{5d68d8a4-e1cb-4b1f-aecd-c97a53648789}</UniqueIdentifier>
+    <Filter Include="ImGUI">
+      <UniqueIdentifier>{0136c273-f27e-4b74-a3ec-d9d99af12681}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,26 +51,29 @@
     <ClCompile Include="Textureshaderclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IMGUI\imgui_impl_win32.cpp">
-      <Filter>IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="IMGUI\imgui_widgets.cpp">
-      <Filter>IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="IMGUI\imgui.cpp">
-      <Filter>IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="IMGUI\imgui_draw.cpp">
-      <Filter>IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="IMGUI\imgui_impl_dx11.cpp">
-      <Filter>IMGUI</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Plant.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_win32.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_widgets.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_demo.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_draw.cpp">
+      <Filter>ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_dx11.cpp">
+      <Filter>ImGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,30 +104,6 @@
     <ClInclude Include="Textureshaderclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IMGUI\imgui_impl_dx11.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="IMGUI\imgui_impl_win32.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="IMGUI\imgui_internal.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="IMGUI\imstb_rectpack.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="IMGUI\imstb_textedit.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="IMGUI\imstb_truetype.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="IMGUI\imconfig.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="IMGUI\imgui.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
     <ClInclude Include="Systemclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -137,6 +116,33 @@
     <ClInclude Include="Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_win32.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_internal.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_user.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_rectpack.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_textedit.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_truetype.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imconfig.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_dx11.h">
+      <Filter>ImGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Light.vs" />
@@ -146,6 +152,9 @@
     </None>
     <None Include="Texture.vs">
       <Filter>Source Files</Filter>
+    </None>
+    <None Include="IMGUI\imgui_user.inl">
+      <Filter>ImGUI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

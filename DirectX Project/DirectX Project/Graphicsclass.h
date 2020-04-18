@@ -19,10 +19,9 @@
 #include "Plant.h"
 #include "Types.h"
 #include "imconfig.h"
-#include "IMGUI\\imgui.h"
-#include "IMGUI\\imgui_impl_win32.h"
-#include "IMGUI\\imgui_impl_dx11.h"
-
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 /////////////
 // GLOBALS //
 /////////////
@@ -49,6 +48,7 @@ public:
 	void CamPosZ(float);
 	void CamRotX(float);
 	void CamRotY(float);
+	void GUI();
 private:
 	bool Render(float);
 
@@ -60,9 +60,11 @@ private:
 	LightClass* m_Light;
 	BitmapClass* m_Bitmap;
 	Plant* flower;
+	Plant* bush;
 	int* reset_leaves;
 	int* reset_petals;
 	int* reset_stems;
 	std::string model_file;
+	Type type = Type::FLOWER;
 };
 #endif

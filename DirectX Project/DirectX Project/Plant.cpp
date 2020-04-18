@@ -68,7 +68,6 @@ void Plant::Setup(ID3D11Device* device, int* reset_leaves, int* reset_petals, in
 			XMFLOAT3(0, (m_Stem[i].GetHeight() * m_Stem[i].Scale().y) * i, 0), XMFLOAT3(0, 0, 0));
 	}
 	float x_rot = 0;
-	//float x_rot = rand() % 360 + 0;
 	for (int i = 0; i < num_leaves; i++)
 	{
 		float rot_num = rand() % 10 + -10;
@@ -79,9 +78,7 @@ void Plant::Setup(ID3D11Device* device, int* reset_leaves, int* reset_petals, in
 	}
 
 	x_rot = 0;
-	//x_rot = rand() % 360 + 0;
 	int flower_rot = 0;
-	//int flower_rot = rand() % 360 + 0;
 	for (int i = 0; i < num_petals; i++)
 	{
 		m_Petal[i].Initialize(device, "Data/Petal.txt", "Data/petal.dds", XMFLOAT3(flower_rot, x_rot, 30), XMFLOAT3(0, m_Stem[0].Scale().y * m_Stem[0].GetHeight(), 0),
@@ -124,6 +121,13 @@ void Plant::Update()
 	for (int i = 0; i < num_stems; i++)
 	{
 		m_Stem[i].Position() = XMFLOAT3(0, (m_Stem[i].GetHeight() * m_Stem[i].Scale().y) * i, 0);
+	}
+	for (int i = 0; i < num_leaves; i++)
+	{
+		if (m_Leaf[i].Position().y > (m_Stem[0].GetHeight() * m_Stem[0].Scale().y)* num_stems)
+		{
+			m_Leaf[i].Position().y = (m_Stem[0].GetHeight() * m_Stem[0].Scale().y) * num_stems;
+		}
 	}
 }
 void Plant::Render(ID3D11DeviceContext* context, LightShaderClass* shader, LightClass* light, XMMATRIX view_matrix, XMMATRIX projection_matrix)
