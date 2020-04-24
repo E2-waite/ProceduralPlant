@@ -3,7 +3,8 @@
 enum class Type
 {
 	FLOWER,
-	BUSH
+	VINE,
+	BAMBOO
 };
 enum class Element
 {

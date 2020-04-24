@@ -37,6 +37,7 @@ public:
 	XMFLOAT3& Rotation();
 	XMFLOAT3 StartRot();
 	XMFLOAT3& Scale();
+	XMFLOAT3& TopPos();
 	void UpdateMatrix();
 	int GetIndexCount();
 	XMMATRIX GetWorldMatrix();
@@ -66,8 +67,9 @@ private:
 	float x_pos, y_pos, z_pos;
 	float x_rot, y_rot, z_rot;
 	XMFLOAT3 start_rot;
-	XMFLOAT3 rotation;
+	XMFLOAT3 rotation = XMFLOAT3(0,0,0);
 	XMFLOAT3 start_pos;
+	XMFLOAT3 top_pos;
 	XMFLOAT3 position;
 	XMFLOAT3 scale= XMFLOAT3(1,1,1);
 	int num_polygons;

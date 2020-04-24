@@ -51,7 +51,6 @@ public:
 	void GUI();
 private:
 	bool Render(float);
-
 private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
@@ -60,7 +59,8 @@ private:
 	LightClass* m_Light;
 	BitmapClass* m_Bitmap;
 	Plant* flower;
-	Plant* bush;
+	Plant* vine;
+	Plant* bamboo;
 	int* reset_leaves;
 	int* reset_petals;
 	int* reset_stems;

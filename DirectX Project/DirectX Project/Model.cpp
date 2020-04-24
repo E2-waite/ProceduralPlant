@@ -346,6 +346,11 @@ XMMATRIX Model::GetWorldMatrix()
 	return m_worldMatrix;
 }
 
+XMFLOAT3& Model::TopPos()
+{
+	return top_pos;
+}
+
 
 void Model::UpdateMatrix()
 {
@@ -361,6 +366,10 @@ void Model::UpdateMatrix()
 	scaleMatrix = XMMatrixScaling(scale.x, scale.y, scale.z);
 
 	m_worldMatrix = scaleMatrix * rotationMatrix * positionMatrix;
+
+	top_pos = XMFLOAT3(0, height, 0);
+	XMVECTOR top_vec = XMVector3Transform(XMLoadFloat3(&top_pos), m_worldMatrix);
+	XMStoreFloat3(&top_pos, top_vec);
 }
 
 

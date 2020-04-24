@@ -10,7 +10,145 @@ Plant::~Plant()
 {
 
 }
-void Plant::Setup(ID3D11Device* device, int* reset_leaves, int* reset_petals, int* reset_stems)
+void Plant::Setup(Type type,ID3D11Device* device, int* reset_leaves, int* reset_petals, int* reset_stems)
+{
+	type = type;
+	if (type == Type::FLOWER)
+	{
+		SetupFlower(device, reset_leaves, reset_petals, reset_stems);
+	}
+	else if (type == Type::VINE)
+	{
+		num_petals = 0;
+		SetupBush(device, reset_leaves, reset_stems);
+	}
+	else if (type == Type::BAMBOO)
+	{
+		num_petals = 0;
+		SetupBamboo(device, reset_leaves, reset_stems);
+	}
+}
+
+void Plant::SetupBamboo(ID3D11Device* device, int* reset_leaves, int* reset_stems)
+{
+	setting_up = true;
+	if (m_Leaf)
+	{
+		for (int i = 0; i < num_leaves; i++)
+		{
+			m_Leaf[i].Shutdown();
+		}
+		delete[] m_Leaf;
+		m_Leaf = NULL;
+	}
+
+	if (m_Stem)
+	{
+		for (int i = 0; i < num_stems; i++)
+		{
+			m_Stem[i].Shutdown();
+		}
+		delete[] m_Stem;
+		m_Stem = NULL;
+	}
+
+	if (reset_leaves)
+	{
+		num_leaves = *reset_leaves;
+	}
+	
+	if (reset_stems)
+	{
+		num_stems = *reset_stems;
+	}
+	int new_leaves = num_leaves * num_stems;
+
+	m_Stem = new Model[num_stems];
+	m_Leaf = new Model[num_leaves];
+
+	for (int i = 0; i < num_stems; i++)
+	{
+		if (i > 0)
+		{
+			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, 0, 0),
+				m_Stem[i].TopPos(), XMFLOAT3(0, 0, 0));
+		}
+		else
+		{
+			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, 0, 0),
+				XMFLOAT3(0, 0, 0), XMFLOAT3(0, 0, 0));
+		}
+	}
+
+	for (int i = 0; i < num_leaves; i++)
+	{
+		int pos = ceil((i + 1) / num_leaves);
+		m_Leaf[i].Initialize(device, "Data/Leaf2.txt", "Data/leaf.dds",
+			XMFLOAT3(0, 0, 0), m_Stem[pos].TopPos(), XMFLOAT3(2, 1, 2));
+	}
+	setting_up = false;
+}
+
+void Plant::SetupBush(ID3D11Device* device, int* reset_leaves, int* reset_stems)
+{
+	setting_up = true;
+	if (m_Leaf)
+	{
+		for (int i = 0; i < num_leaves; i++)
+		{
+			m_Leaf[i].Shutdown();
+		}
+		delete[] m_Leaf;
+		m_Leaf = NULL;
+	}
+
+	if (m_Stem)
+	{
+		for (int i = 0; i < num_stems; i++)
+		{
+			m_Stem[i].Shutdown();
+		}
+		delete[] m_Stem;
+		m_Stem = NULL;
+	}
+
+	if (reset_stems)
+	{
+		num_stems = *reset_stems;
+		num_leaves = num_stems * 2;
+	}
+
+	m_Stem = new Model[num_stems];
+	m_Leaf = new Model[num_leaves];
+	float rot_y = 30;
+	for (int i = 0; i < num_stems; i++)
+	{
+		if (i > 0)
+		{
+			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, rot_y, 0),
+				m_Stem[i].TopPos(), XMFLOAT3(0, 0, 0));
+		}
+		else
+		{
+			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, rot_y, 0),
+				XMFLOAT3(0,0,0), XMFLOAT3(0, 0, 0));
+		}
+
+		rot_y += 50;
+	}
+
+	int rot_x = 90;
+	int scl = 1;
+	for (int i = 0; i < num_leaves; i++)
+	{
+		int pos = ceil((i + 1) / 2);
+		m_Leaf[i].Initialize(device, "Data/Leaf2.txt", "Data/leaf.dds",
+			XMFLOAT3(rot_x, 0, 0), m_Stem[pos].TopPos(), XMFLOAT3(1, 1, 1));
+		rot_x += 90;
+	}
+	setting_up = false;
+}
+void Plant::SetupFlower(ID3D11Device* device, int* reset_leaves, int* reset_petals, int* reset_stems)
 {
 	setting_up = true;
 	if (m_Leaf)
@@ -64,7 +202,7 @@ void Plant::Setup(ID3D11Device* device, int* reset_leaves, int* reset_petals, in
 	float rot_swap = 45;
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, 0, 0), 
+		m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, 0, 0),
 			XMFLOAT3(0, (m_Stem[i].GetHeight() * m_Stem[i].Scale().y) * i, 0), XMFLOAT3(0, 0, 0));
 	}
 	float x_rot = 0;
@@ -85,7 +223,7 @@ void Plant::Setup(ID3D11Device* device, int* reset_leaves, int* reset_petals, in
 			XMFLOAT3(1, 1, 1));
 		x_rot -= (360 / num_petals) + 1;
 	}
-	
+
 	setting_up = false;
 }
 
@@ -112,21 +250,39 @@ void Plant::Shutdown()
 		m_Stem = 0;
 	}
 }
-void Plant::Update()
+void Plant::Update(Type type)
 {
 	for (int i = 0; i < num_petals; i++)
 	{
-		m_Petal[i].Position() = XMFLOAT3(0, (m_Stem[0].GetHeight() * m_Stem[0].Scale().y) * num_stems, 0);
+		m_Petal[i].Position() = m_Stem[num_stems - 1].TopPos();
 	}
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].Position() = XMFLOAT3(0, (m_Stem[i].GetHeight() * m_Stem[i].Scale().y) * i, 0);
+		if (i > 0)
+		{
+			m_Stem[i].Position() = m_Stem[i - 1].TopPos();
+		}
+		else
+		{
+			m_Stem[i].Position() = XMFLOAT3(0, 0, 0);
+		}
 	}
 	for (int i = 0; i < num_leaves; i++)
 	{
-		if (m_Leaf[i].Position().y > (m_Stem[0].GetHeight() * m_Stem[0].Scale().y)* num_stems)
+		if (type == Type::FLOWER)
 		{
-			m_Leaf[i].Position().y = (m_Stem[0].GetHeight() * m_Stem[0].Scale().y) * num_stems;
+			if (m_Leaf[i].Position().y > (m_Stem[0].GetHeight() * m_Stem[0].Scale().y)* num_stems)
+			{
+				m_Leaf[i].Position().y = (m_Stem[0].GetHeight() * m_Stem[0].Scale().y) * num_stems;
+			}
+		}
+		else if (type == Type::VINE || type == Type::BAMBOO)
+		{
+			for (int i = 0; i < num_leaves; i++)
+			{
+				int pos = ceil((i + 1) / 2);
+				m_Leaf[i].Position() = m_Stem[pos].TopPos();
+			}
 		}
 	}
 }
@@ -152,13 +308,34 @@ void Plant::Render(ID3D11DeviceContext* context, LightShaderClass* shader, Light
 	}
 }
 
-void Plant::SetRot(Element element, XMFLOAT3 rot)
+void Plant::SetRot(Type type, Element element, XMFLOAT3 rot)
 {
 	if (element == Element::LEAF)
 	{
-		for (int i = 0; i < num_leaves; i++)
+		if (type == Type::FLOWER)
 		{
-			m_Leaf[i].Rotation() = XMFLOAT3(m_Leaf[i].StartRot().x + rot.x, m_Leaf[i].StartRot().y + rot.y, m_Leaf[i].StartRot().z + rot.z);
+			for (int i = 0; i < num_leaves; i++)
+			{
+				m_Leaf[i].Rotation() = XMFLOAT3(m_Leaf[i].StartRot().x + rot.x, m_Leaf[i].StartRot().y + rot.y, m_Leaf[i].StartRot().z + rot.z);
+			}
+		}
+		else if (type == Type::VINE)
+		{
+			int rot_x = 0;
+			for (int i = 0; i < num_leaves; i++)
+			{
+				m_Leaf[i].Rotation() = XMFLOAT3(rot_x, m_Leaf[i].StartRot().y + rot.y, m_Leaf[i].StartRot().z + rot.z);
+				rot_x += 180;
+			}
+		}
+		else if (type == Type::BAMBOO)
+		{
+			int rot_x = 0;
+			for (int i = 0; i < num_leaves; i++)
+			{
+				m_Leaf[i].Rotation() = XMFLOAT3(rot_x, m_Leaf[i].StartRot().y + rot.y, m_Leaf[i].StartRot().z + rot.z);
+				rot_x += 90;
+			}
 		}
 	}
 	if (element == Element::PETAL)
@@ -167,6 +344,26 @@ void Plant::SetRot(Element element, XMFLOAT3 rot)
 		{
 			m_Petal[i].Rotation() = XMFLOAT3(m_Petal[i].StartRot().x + rot.x, m_Petal[i].StartRot().y + rot.y, m_Petal[i].StartRot().z + rot.z);
 		}
+	}
+	if (element == Element::STEM)
+	{
+		if (type == Type::VINE)
+		{
+			for (int i = 0; i < num_stems; i++)
+			{
+				m_Stem[i].Rotation().x = rot.x;
+				m_Stem[i].Rotation().y = rot.y + (i * rot.y);
+				m_Stem[i].Rotation().z = rot.z + (i * rot.z);
+			}
+		}
+		if (type == Type::FLOWER)
+		{
+			for (int i = 0; i < num_stems; i++)
+			{
+				m_Stem[i].Rotation() = rot;
+			}
+		}
+
 	}
 }
 
@@ -195,21 +392,21 @@ void Plant::SetScl(Element element, XMFLOAT3 scl)
 	}
 }
 
-void Plant::SetNum(ID3D11Device* device, Element element, int* num)
+void Plant::SetNum(Type type, ID3D11Device* device, Element element, int* num)
 {
 	if (!setting_up)
 	{
 		if (element == Element::LEAF && *num != num_leaves)
 		{
-			Setup(device, num, NULL, NULL);
+			Setup(type, device, num, NULL, NULL);
 		}
 		if (element == Element::PETAL && *num != num_petals)
 		{
-			Setup(device, NULL, num, NULL);
+			Setup(type, device, NULL, num, NULL);
 		}
 		if (element == Element::STEM && *num != num_stems)
 		{
-			Setup(device, NULL, NULL, num);
+			Setup(type, device, NULL, NULL, num);
 		}
 	}
 }
