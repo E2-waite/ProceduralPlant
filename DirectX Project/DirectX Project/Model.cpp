@@ -373,10 +373,10 @@ void Model::UpdateMatrix()
 }
 
 
-bool Model::WriteVector()
+bool Model::WriteVector(std::string file_name)
 {
 	std::ofstream output_file;
-	output_file.open("plant.obj", std::ios_base::app);
+	output_file.open(file_name, std::ios_base::app);
 	XMVECTOR* positions;
 	
 	positions = new XMVECTOR[m_vertexCount];
@@ -401,10 +401,10 @@ bool Model::WriteVector()
 	output_file.close();
 	return true;
 }
-bool Model::WriteTex()
+bool Model::WriteTex(std::string file_name)
 {
 	std::ofstream output_file;
-	output_file.open("plant.obj", std::ios_base::app);
+	output_file.open(file_name, std::ios_base::app);
 
 	for (int i = 0; i < m_indexCount; i++)
 	{			
@@ -416,10 +416,10 @@ bool Model::WriteTex()
 	}
 	return true;
 }
-bool Model::WriteNorm()
+bool Model::WriteNorm(std::string file_name)
 {
 	std::ofstream output_file;
-	output_file.open("plant.obj", std::ios_base::app);
+	output_file.open(file_name, std::ios_base::app);
 	XMVECTOR* n_positions;
 	n_positions = new XMVECTOR[m_vertexCount];
 
@@ -443,10 +443,10 @@ bool Model::WriteNorm()
 	return true;
 }
 
-int Model::WriteFaces(int offset)
+int Model::WriteFaces(std::string file_name, int offset)
 {
 	std::ofstream output_file;
-	output_file.open("plant.obj", std::ios_base::app);
+	output_file.open(file_name, std::ios_base::app);
 	int poly_ind = 1;
 	for (int i = 0; i < num_polygons; i++)
 	{

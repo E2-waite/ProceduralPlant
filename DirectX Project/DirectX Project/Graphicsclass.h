@@ -66,5 +66,6 @@ private:
 	int* reset_stems;
 	std::string model_file;
 	Type type = Type::FLOWER;
+	char file_name[15] = { 0 };
 };
 #endif

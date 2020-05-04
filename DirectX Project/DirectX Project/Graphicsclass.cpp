@@ -287,10 +287,9 @@ void GraphicsClass::GUI()
 		reset_stems = new int(2);
 	}
 
-	std::string texture_path;
-
 	if (type == Type::FLOWER)
 	{
+		std::string file_name = "";
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -313,6 +312,15 @@ void GraphicsClass::GUI()
 		ImGui::DragInt("Number of Stems", reset_stems, 0.1f, 1.0f, 5.0f);
 		ImGui::DragFloat2("Stem Rotation", stem_rot, 0.1f, -35.0f, 35.0f);
 		ImGui::DragFloat3("Stem Scale", stem_scl, 0.1f, 0.1f, 3.0f);
+		if (ImGui::Button("Export"))
+		{
+			file_name = flower->WriteToFile(Type::FLOWER);
+		}
+		if (file_name != "")
+		{
+			std::string txt = "Saved as: " + file_name;
+			ImGui::Text(txt.c_str());
+		}
 		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -330,6 +338,7 @@ void GraphicsClass::GUI()
 	}
 	else if (type == Type::VINE)
 	{
+		std::string file_name = "";
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -348,6 +357,15 @@ void GraphicsClass::GUI()
 		ImGui::DragFloat3("Stem Scale", stem_scl, 0.1f, 0.1f, 3.0f);
 		ImGui::DragFloat3("Leaf Rotation", leaf_rot, 0.1f, -180.0f, 180.0f);
 		ImGui::DragFloat3("Leaf Scale", leaf_scl, 0.1f, 0.1f, 3.0f);
+		if (ImGui::Button("Export"))
+		{
+			file_name = vine->WriteToFile(Type::VINE);
+		}
+		if (file_name != "")
+		{
+			std::string txt = "Saved as: " + file_name;
+			ImGui::Text(txt.c_str());
+		}
 		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -359,6 +377,7 @@ void GraphicsClass::GUI()
 	}
 	else if (type == Type::BAMBOO)
 	{
+		std::string file_name = "";
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -373,15 +392,26 @@ void GraphicsClass::GUI()
 			type = Type::VINE;
 		}
 
-		ImGui::DragInt("Stem Segments", reset_stems, 0.1f, 1.0f, 25.0f);
+		ImGui::DragInt("Stem Segments", reset_stems, 0.1f, 1.0f, 5.0f);
 		ImGui::DragFloat3("Stem Scale", stem_scl, 0.1f, 0.1f, 5.0f);
+		ImGui::DragInt("Number of Leaves", reset_leaves, 0.1f, 0.0f, 3.0f);
 		ImGui::DragFloat3("Leaf Rotation", leaf_rot, 0.1f, -180.0f, 180.0f);
 		ImGui::DragFloat3("Leaf Scale", leaf_scl, 0.1f, 0.1f, 3.0f);
+		if (ImGui::Button("Export"))
+		{
+			file_name = bamboo->WriteToFile(Type::BAMBOO);
+		}
+		if (file_name != "")
+		{
+			std::string txt = "Saved as: " + file_name;
+			ImGui::Text(txt.c_str());
+		}
 		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		bamboo->SetNum(type, m_D3D->GetDevice(), Element::STEM, reset_stems);
 		bamboo->SetScl(Element::STEM, XMFLOAT3{ stem_scl[0] , stem_scl[1] , stem_scl[2] });
+		bamboo->SetNum(type, m_D3D->GetDevice(), Element::LEAF, reset_leaves);
 		bamboo->SetRot(type, Element::LEAF, XMFLOAT3{ leaf_rot[0], leaf_rot[1], leaf_rot[2] });
 		bamboo->SetScl(Element::LEAF, XMFLOAT3{ leaf_scl[0] , leaf_scl[1] , leaf_scl[2] });
 	}

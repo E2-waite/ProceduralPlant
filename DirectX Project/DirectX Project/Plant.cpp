@@ -20,7 +20,7 @@ void Plant::Setup(Type type,ID3D11Device* device, int* reset_leaves, int* reset_
 	else if (type == Type::VINE)
 	{
 		num_petals = 0;
-		SetupBush(device, reset_leaves, reset_stems);
+		SetupVine(device, reset_leaves, reset_stems);
 	}
 	else if (type == Type::BAMBOO)
 	{
@@ -61,7 +61,6 @@ void Plant::SetupBamboo(ID3D11Device* device, int* reset_leaves, int* reset_stem
 	{
 		num_stems = *reset_stems;
 	}
-	int new_leaves = num_leaves * num_stems;
 
 	m_Stem = new Model[num_stems];
 	m_Leaf = new Model[num_leaves];
@@ -82,14 +81,14 @@ void Plant::SetupBamboo(ID3D11Device* device, int* reset_leaves, int* reset_stem
 
 	for (int i = 0; i < num_leaves; i++)
 	{
-		int pos = ceil((i + 1) / num_leaves);
+		int pos = ceil((i + 1) / 2);
 		m_Leaf[i].Initialize(device, "Data/Leaf2.txt", "Data/leaf.dds",
 			XMFLOAT3(0, 0, 0), m_Stem[pos].TopPos(), XMFLOAT3(2, 1, 2));
 	}
 	setting_up = false;
 }
 
-void Plant::SetupBush(ID3D11Device* device, int* reset_leaves, int* reset_stems)
+void Plant::SetupVine(ID3D11Device* device, int* reset_leaves, int* reset_stems)
 {
 	setting_up = true;
 	if (m_Leaf)
@@ -143,7 +142,7 @@ void Plant::SetupBush(ID3D11Device* device, int* reset_leaves, int* reset_stems)
 	{
 		int pos = ceil((i + 1) / 2);
 		m_Leaf[i].Initialize(device, "Data/Leaf2.txt", "Data/leaf.dds",
-			XMFLOAT3(rot_x, 0, 0), m_Stem[pos].TopPos(), XMFLOAT3(1, 1, 1));
+			XMFLOAT3(rot_x, 90, 0), m_Stem[pos].TopPos(), XMFLOAT3(1, 1, 1));
 		rot_x += 90;
 	}
 	setting_up = false;
@@ -276,7 +275,7 @@ void Plant::Update(Type type)
 				m_Leaf[i].Position().y = (m_Stem[0].GetHeight() * m_Stem[0].Scale().y) * num_stems;
 			}
 		}
-		else if (type == Type::VINE || type == Type::BAMBOO)
+		else if (type == Type::VINE || type==Type::BAMBOO)
 		{
 			for (int i = 0; i < num_leaves; i++)
 			{
@@ -324,13 +323,13 @@ void Plant::SetRot(Type type, Element element, XMFLOAT3 rot)
 			int rot_x = 0;
 			for (int i = 0; i < num_leaves; i++)
 			{
-				m_Leaf[i].Rotation() = XMFLOAT3(rot_x, m_Leaf[i].StartRot().y + rot.y, m_Leaf[i].StartRot().z + rot.z);
+				m_Leaf[i].Rotation() = XMFLOAT3(rot_x, 90 + rot.y, m_Leaf[i].StartRot().z + rot.z);
 				rot_x += 180;
 			}
 		}
 		else if (type == Type::BAMBOO)
 		{
-			int rot_x = 0;
+			int rot_x = rot.x;
 			for (int i = 0; i < num_leaves; i++)
 			{
 				m_Leaf[i].Rotation() = XMFLOAT3(rot_x, m_Leaf[i].StartRot().y + rot.y, m_Leaf[i].StartRot().z + rot.z);
@@ -352,8 +351,8 @@ void Plant::SetRot(Type type, Element element, XMFLOAT3 rot)
 			for (int i = 0; i < num_stems; i++)
 			{
 				m_Stem[i].Rotation().x = rot.x;
-				m_Stem[i].Rotation().y = rot.y + (i * rot.y);
-				m_Stem[i].Rotation().z = rot.z + (i * rot.z);
+				m_Stem[i].Rotation().y = rot.y + ((i * 2) * rot.y);
+				m_Stem[i].Rotation().z = rot.z + ((i * 2) * rot.z);
 			}
 		}
 		if (type == Type::FLOWER)
@@ -411,53 +410,76 @@ void Plant::SetNum(Type type, ID3D11Device* device, Element element, int* num)
 	}
 }
 
-void Plant::WriteToFile()
+std::string Plant::WriteToFile(Type type)
 {
 	std::ofstream output_file;
-	output_file.open("plant.obj", std::ofstream::out | std::ofstream::trunc);
+	bool name_found = false;
+	std::string filename = "";
+	int file_ind = 0;
+	while (!name_found)
+	{
+		if (type == Type::FLOWER)
+		{
+			filename = "Models/Flower " + std::to_string(file_ind) + ".obj";
+		}
+		else if (type == Type::VINE)
+		{
+			filename = "Models/Vine " + std::to_string(file_ind) + ".obj";
+		}
+		else if (type == Type::BAMBOO)
+		{
+			filename = "Models/Bamboo " + std::to_string(file_ind) + ".obj";
+		}
+		if (!FileExists(filename))
+		{
+			break;
+		}
+		file_ind++;
+	}
+	output_file.open(filename, std::ofstream::out | std::ofstream::trunc);
 	output_file << "mtllib plant.mtl \n";
 	output_file << "g default \n";
 	output_file.close();
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].WriteVector();
+		m_Stem[i].WriteVector(filename);
 	}
 	for (int i = 0; i < num_petals; i++)
 	{
-		m_Petal[i].WriteVector();
+		m_Petal[i].WriteVector(filename);
 	}
 	for (int i = 0; i < num_leaves; i++)
 	{
-		m_Leaf[i].WriteVector();
+		m_Leaf[i].WriteVector(filename);
 	}
 
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].WriteTex();
+		m_Stem[i].WriteTex(filename);
 	}
 	for (int i = 0; i < num_petals; i++)
 	{
-		m_Petal[i].WriteTex();
+		m_Petal[i].WriteTex(filename);
 	}
 	for (int i = 0; i < num_leaves; i++)
 	{
-		m_Leaf[i].WriteTex();
+		m_Leaf[i].WriteTex(filename);
 	}
 
 
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].WriteNorm();
+		m_Stem[i].WriteNorm(filename);
 	}
 	for (int i = 0; i < num_petals; i++)
 	{
-		m_Petal[i].WriteNorm();
+		m_Petal[i].WriteNorm(filename);
 	}
 	for (int i = 0; i < num_leaves; i++)
 	{
-		m_Leaf[i].WriteNorm();
+		m_Leaf[i].WriteNorm(filename);
 	}
-	output_file.open("plant.obj", std::ios_base::app);
+	output_file.open(filename, std::ios_base::app);
 	output_file << "s off \n";
 	output_file << "g plant \n";
 	output_file << "usemtl stemMat \n";
@@ -467,24 +489,36 @@ void Plant::WriteToFile()
 
 	for (int i = 0; i < num_stems; i++)
 	{
-		total_indices += m_Stem[i].WriteFaces(total_indices);
+		total_indices += m_Stem[i].WriteFaces(filename, total_indices);
 	}
 
-	output_file.open("plant.obj", std::ios_base::app);
+	output_file.open(filename, std::ios_base::app);
 	output_file << "usemtl petalMat \n";
 	output_file.close();
 	for (int i = 0; i < num_petals; i++)
 	{
-		total_indices += m_Petal[i].WriteFaces(total_indices);
+		total_indices += m_Petal[i].WriteFaces(filename, total_indices);
 	}
 
-	output_file.open("plant.obj", std::ios_base::app);
+	output_file.open(filename, std::ios_base::app);
 	output_file << "usemtl leafMat \n";
 	output_file.close();
 	for (int i = 0; i < num_leaves; i++)
 	{
-		total_indices += m_Leaf[i].WriteFaces(total_indices);
+		total_indices += m_Leaf[i].WriteFaces(filename, total_indices);
 	}
+
+	return filename;
+}
+
+bool Plant::FileExists(const std::string& filename)
+{
+	struct stat buf;
+	if (stat(filename.c_str(), &buf) != -1)
+	{
+		return true;
+	}
+	return false;
 }
 
 XMFLOAT3 Plant::GetCentre()
