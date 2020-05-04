@@ -13,7 +13,7 @@
 // INCLUDES //
 //////////////
 #include <windows.h>
-
+#include <sstream> 
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
@@ -47,6 +47,8 @@ private:
 
 	InputClass* m_Input;
 	GraphicsClass* m_Graphics;
+	XMINT3 last_pos = XMINT3(0,0,0);
+	int last_scroll = 0;
 };
 
 static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

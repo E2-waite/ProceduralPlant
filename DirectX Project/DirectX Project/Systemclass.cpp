@@ -136,7 +136,6 @@ void SystemClass::Run()
 bool SystemClass::Frame()
 {
 	bool result;
-	int mouseX, mouseY;
 
 	result = m_Input->Frame();
 	if (!result)
@@ -148,13 +147,13 @@ bool SystemClass::Frame()
 	{
 		m_Graphics->UpdateCamRot(XMFLOAT2(0,-0.5));
 	}
-	if (m_Input->CheckKey(DIK_A))
-	{
-		m_Graphics->UpdateCamRot(XMFLOAT2(-0.5, 0));
-	}
 	if (m_Input->CheckKey(DIK_S))
 	{
 		m_Graphics->UpdateCamRot(XMFLOAT2(0, 0.5));
+	}
+	if (m_Input->CheckKey(DIK_A))
+	{
+		m_Graphics->UpdateCamRot(XMFLOAT2(-0.5, 0));
 	}
 	if (m_Input->CheckKey(DIK_D))
 	{
@@ -162,11 +161,28 @@ bool SystemClass::Frame()
 	}
 
 
+	int x_difference = m_Input->GetMouseLocation().x - last_pos.x;
+	int y_difference = m_Input->GetMouseLocation().y - last_pos.y;
+	last_pos = m_Input->GetMouseLocation();
+
+	x_difference = -x_difference;
+
+	if (m_Input->MouseClicked(true))
+	{
+		m_Graphics->UpdateCamRot(XMFLOAT2(x_difference / 10, 0));
+	}
+	if (m_Input->MouseClicked(false))
+	{
+		m_Graphics->UpdateCamRot(XMFLOAT2(0, y_difference));
+	}
+
+
+
+
 	// Get the location of the mouse from the input object,
-	m_Input->GetMouseLocation(mouseX, mouseY);
 
 
-	result = m_Graphics->Frame(mouseX, mouseY);
+	result = m_Graphics->Frame(m_Input->GetMouseLocation().x, m_Input->GetMouseLocation().y);
 	if (!result)
 	{
 		return false;

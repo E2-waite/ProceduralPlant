@@ -200,7 +200,7 @@ void InputClass::ProcessInput()
 	// Update the location of the mouse cursor based on the change of the mouse location during the frame.
 	m_mouseX += m_mouseState.lX;
 	m_mouseY += m_mouseState.lY;
-
+	m_mouseZ += m_mouseState.lZ;
 	// Ensure the mouse location doesn't exceed the screen width or height.
 	if (m_mouseX < 0) { m_mouseX = 0; }
 	if (m_mouseY < 0) { m_mouseY = 0; }
@@ -231,10 +231,17 @@ bool InputClass::CheckKey(char key)
 	return false;
 }
 
-void InputClass::GetMouseLocation(int& mouseX, int& mouseY)
+XMINT3 InputClass::GetMouseLocation()
 {
-	mouseX = m_mouseX;
-	mouseY = m_mouseY;
-	return;
+	return XMINT3(m_mouseX, m_mouseY, m_mouseZ);
 }
 
+bool InputClass::MouseClicked(bool left)
+{
+	if (left && m_mouseState.rgbButtons[0] ||
+		!left && m_mouseState.rgbButtons[1])
+	{
+		return true;
+	}
+	return false;
+}
