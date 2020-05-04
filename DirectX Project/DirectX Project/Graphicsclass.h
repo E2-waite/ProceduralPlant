@@ -42,12 +42,7 @@ public:
 	bool Initialize(int, int, HWND);
 	void Shutdown();
 	bool Frame(int,int);
-	void SetCamPos(float, float, float);
-	void CamPosX(float);
-	void CamPosY(float);
-	void CamPosZ(float);
-	void CamRotX(float);
-	void CamRotY(float);
+	void UpdateCamRot(XMFLOAT2);
 	void GUI();
 private:
 	bool Render(float);
@@ -61,11 +56,10 @@ private:
 	Plant* flower;
 	Plant* vine;
 	Plant* bamboo;
-	int* reset_leaves;
-	int* reset_petals;
-	int* reset_stems;
 	std::string model_file;
 	Type type = Type::FLOWER;
-	char file_name[15] = { 0 };
+	std::string flower_file_name = "";
+	std::string vine_file_name = "";
+	std::string bamboo_file_name = "";
 };
 #endif

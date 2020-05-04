@@ -69,12 +69,12 @@ void Plant::SetupBamboo(ID3D11Device* device, int* reset_leaves, int* reset_stem
 	{
 		if (i > 0)
 		{
-			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, 0, 0),
+			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/Bamboo.dds", XMFLOAT3(0, 0, 0),
 				m_Stem[i].TopPos(), XMFLOAT3(0, 0, 0));
 		}
 		else
 		{
-			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/leaf.dds", XMFLOAT3(0, 0, 0),
+			m_Stem[i].Initialize(device, "Data/Stem.txt", "Data/Bamboo.dds", XMFLOAT3(0, 0, 0),
 				XMFLOAT3(0, 0, 0), XMFLOAT3(0, 0, 0));
 		}
 	}
@@ -82,7 +82,7 @@ void Plant::SetupBamboo(ID3D11Device* device, int* reset_leaves, int* reset_stem
 	for (int i = 0; i < num_leaves; i++)
 	{
 		int pos = ceil((i + 1) / 2);
-		m_Leaf[i].Initialize(device, "Data/Leaf2.txt", "Data/leaf.dds",
+		m_Leaf[i].Initialize(device, "Data/Leaf3.txt", "Data/Leaf2.dds",
 			XMFLOAT3(0, 0, 0), m_Stem[pos].TopPos(), XMFLOAT3(2, 1, 2));
 	}
 	setting_up = false;
@@ -412,103 +412,134 @@ void Plant::SetNum(Type type, ID3D11Device* device, Element element, int* num)
 
 std::string Plant::WriteToFile(Type type)
 {
-	std::ofstream output_file;
+	std::ofstream obj_file;
 	bool name_found = false;
-	std::string filename = "";
+	std::string obj_filename = "";
+	std::string mtl_filename = "";
+	std::string directory = "Models/";
 	int file_ind = 0;
 	while (!name_found)
 	{
 		if (type == Type::FLOWER)
 		{
-			filename = "Models/Flower " + std::to_string(file_ind) + ".obj";
+			obj_filename = "Flower " + std::to_string(file_ind) + ".obj";
+			mtl_filename = "Flower " + std::to_string(file_ind) + ".mtl";
 		}
 		else if (type == Type::VINE)
 		{
-			filename = "Models/Vine " + std::to_string(file_ind) + ".obj";
+			obj_filename = "Vine " + std::to_string(file_ind) + ".obj";
+			mtl_filename = "Vine " + std::to_string(file_ind) + ".mtl";
 		}
 		else if (type == Type::BAMBOO)
 		{
-			filename = "Models/Bamboo " + std::to_string(file_ind) + ".obj";
+			obj_filename = "Bamboo " + std::to_string(file_ind) + ".obj";
+			mtl_filename = "Bamboo " + std::to_string(file_ind) + ".mtl";
 		}
-		if (!FileExists(filename))
+		if (!FileExists(directory + obj_filename))
 		{
 			break;
 		}
 		file_ind++;
 	}
-	output_file.open(filename, std::ofstream::out | std::ofstream::trunc);
-	output_file << "mtllib plant.mtl \n";
-	output_file << "g default \n";
-	output_file.close();
+	obj_file.open(directory + obj_filename, std::ofstream::out | std::ofstream::trunc);
+	obj_file << "mtllib " + mtl_filename+ "\n";
+	obj_file << "g default \n";
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].WriteVector(filename);
+		m_Stem[i].WriteVector(obj_file);
 	}
 	for (int i = 0; i < num_petals; i++)
 	{
-		m_Petal[i].WriteVector(filename);
+		m_Petal[i].WriteVector(obj_file);
 	}
 	for (int i = 0; i < num_leaves; i++)
 	{
-		m_Leaf[i].WriteVector(filename);
+		m_Leaf[i].WriteVector(obj_file);
 	}
 
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].WriteTex(filename);
+		m_Stem[i].WriteTex(obj_file);
 	}
 	for (int i = 0; i < num_petals; i++)
 	{
-		m_Petal[i].WriteTex(filename);
+		m_Petal[i].WriteTex(obj_file);
 	}
 	for (int i = 0; i < num_leaves; i++)
 	{
-		m_Leaf[i].WriteTex(filename);
+		m_Leaf[i].WriteTex(obj_file);
 	}
 
 
 	for (int i = 0; i < num_stems; i++)
 	{
-		m_Stem[i].WriteNorm(filename);
+		m_Stem[i].WriteNorm(obj_file);
 	}
 	for (int i = 0; i < num_petals; i++)
 	{
-		m_Petal[i].WriteNorm(filename);
+		m_Petal[i].WriteNorm(obj_file);
 	}
 	for (int i = 0; i < num_leaves; i++)
 	{
-		m_Leaf[i].WriteNorm(filename);
+		m_Leaf[i].WriteNorm(obj_file);
 	}
-	output_file.open(filename, std::ios_base::app);
-	output_file << "s off \n";
-	output_file << "g plant \n";
-	output_file << "usemtl stemMat \n";
-	output_file.close();
-
+	obj_file << "s off \n";
+	obj_file << "g plant \n";
 	int total_indices = 0;
-
-	for (int i = 0; i < num_stems; i++)
+	std::ofstream mtl_file(directory + mtl_filename, std::ofstream::out | std::ofstream::trunc);
+	mtl_file << std::fixed << std::showpoint;
+	mtl_file << std::setprecision(2);
+	if (num_stems > 0)
 	{
-		total_indices += m_Stem[i].WriteFaces(filename, total_indices);
+		obj_file << "g stem \n";
+		obj_file << "usemtl stemMat \n";
+		for (int i = 0; i < num_stems; i++)
+		{
+			total_indices += m_Stem[i].WriteFaces(obj_file, total_indices);
+		}
+
+		mtl_file << "newmtl stemMat \n";
+		mtl_file << "illum 1 \n";
+		mtl_file << "Kd "  << stem_rgb.x << " " << stem_rgb.y << " " <<  stem_rgb.z << "\n";
+		mtl_file << "Ka 0.00 0.00 0.00 \n";
+		mtl_file << "Tf 1.00 1.00 1.00 \n";
+		mtl_file << "Ni 1.00\n";
+
 	}
 
-	output_file.open(filename, std::ios_base::app);
-	output_file << "usemtl petalMat \n";
-	output_file.close();
-	for (int i = 0; i < num_petals; i++)
+	if (num_petals > 0)
 	{
-		total_indices += m_Petal[i].WriteFaces(filename, total_indices);
+		obj_file << "g petals \n";
+		obj_file << "usemtl petalMat \n";
+		for (int i = 0; i < num_petals; i++)
+		{
+			total_indices += m_Petal[i].WriteFaces(obj_file, total_indices);
+		}
+		mtl_file << "newmtl petalMat \n";
+		mtl_file << "illum 1 \n";
+		mtl_file << "Kd "  << petal_rgb.x << " "  << petal_rgb.y << " " << petal_rgb.z << "\n";
+		mtl_file << "Ka 0.00 0.00 0.00 \n";
+		mtl_file << "Tf 1.00 1.00 1.00 \n";
+		mtl_file << "Ni 1.00\n";
 	}
-
-	output_file.open(filename, std::ios_base::app);
-	output_file << "usemtl leafMat \n";
-	output_file.close();
-	for (int i = 0; i < num_leaves; i++)
+	if (num_leaves > 0)
 	{
-		total_indices += m_Leaf[i].WriteFaces(filename, total_indices);
+		obj_file << "g leaves \n";
+		obj_file << "usemtl leafMat \n";
+		for (int i = 0; i < num_leaves; i++)
+		{
+			total_indices += m_Leaf[i].WriteFaces(obj_file, total_indices);
+		}
+		mtl_file << "newmtl leafMat \n";
+		mtl_file << "illum 1 \n";
+		mtl_file << "Kd " <<  leaf_rgb.x << " "  << leaf_rgb.y << " " << leaf_rgb.z << "\n";
+		mtl_file << "Ka 0.00 0.00 0.00 \n";
+		mtl_file << "Tf 1.00 1.00 1.00 \n";
+		mtl_file << "Ni 1.00\n";
 	}
-
-	return filename;
+	obj_file.close();
+	mtl_file.close();
+	return obj_filename;
 }
 
 bool Plant::FileExists(const std::string& filename)
@@ -524,4 +555,17 @@ bool Plant::FileExists(const std::string& filename)
 XMFLOAT3 Plant::GetCentre()
 {
 	return m_Stem[0].Position();
+}
+
+int Plant::Leaves()
+{
+	return num_leaves;
+}
+int Plant::Petals()
+{
+	return num_petals;
+}
+int Plant::Stems()
+{
+	return num_stems;
 }

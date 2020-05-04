@@ -42,10 +42,10 @@ public:
 	int GetIndexCount();
 	XMMATRIX GetWorldMatrix();
 	ID3D11ShaderResourceView* GetTexture();
-	bool WriteVector(std::string file_name);
-	bool WriteTex(std::string file_name);
-	bool WriteNorm(std::string file_name);
-	int WriteFaces(std::string file_name, int);
+	bool WriteVector(std::ofstream&);
+	bool WriteTex(std::ofstream&);
+	bool WriteNorm(std::ofstream&);
+	int WriteFaces(std::ofstream&, int);
 	int GetIndCount();
 	float GetHeight();
 private:

@@ -11,19 +11,16 @@ public:
 	CameraClass(const CameraClass&);
 	~CameraClass();
 
-	void SetPosition(float, float, float);
-	void SetRotation(float, float, float);
-
-	XMFLOAT3 GetPosition();
-	XMFLOAT3 GetRotation();
+	XMFLOAT3& Rotation();
+	float& Radius();
 
 	void Render(XMVECTOR);
 	void GetViewMatrix(XMMATRIX&);
-
+	void UpdateCam();
 private:
-	float m_positionX, m_positionY, m_positionZ;
-	float m_rotationX, m_rotationY, m_rotationZ;
+	XMFLOAT3 rotation = XMFLOAT3(0,1.8f,0);
 	XMMATRIX m_viewMatrix;
+	float radius = 25;
 };
 
 #endif
