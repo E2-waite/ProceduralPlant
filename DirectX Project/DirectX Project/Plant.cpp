@@ -114,7 +114,7 @@ void Plant::SetupVine(ID3D11Device* device, int* reset_leaves, int* reset_stems)
 	if (reset_stems)
 	{
 		num_stems = *reset_stems;
-		num_leaves = num_stems * 2;
+		num_leaves = num_stems;
 	}
 
 	m_Stem = new Model[num_stems];
@@ -136,14 +136,17 @@ void Plant::SetupVine(ID3D11Device* device, int* reset_leaves, int* reset_stems)
 		rot_y += 50;
 	}
 
-	int rot_x = 90;
 	int scl = 1;
+	bool flip = false;
 	for (int i = 0; i < num_leaves; i++)
 	{
-		int pos = ceil((i + 1) / 2);
+		float rot_z = m_Stem[i].Rotation().z;
+		if (flip)
+		{
+			rot_z -= 180;
+		}
 		m_Leaf[i].Initialize(device, "Data/Leaf2.txt", "Data/leaf.dds",
-			XMFLOAT3(rot_x, 90, 0), m_Stem[pos].TopPos(), XMFLOAT3(1, 1, 1));
-		rot_x += 90;
+			XMFLOAT3(0, 90, rot_z), m_Stem[i].TopPos(), XMFLOAT3(1, 1, 1));
 	}
 	setting_up = false;
 }
@@ -266,6 +269,7 @@ void Plant::Update(Type type)
 			m_Stem[i].Position() = XMFLOAT3(0, 0, 0);
 		}
 	}
+	bool flip = false;
 	for (int i = 0; i < num_leaves; i++)
 	{
 		if (type == Type::FLOWER)
@@ -275,13 +279,26 @@ void Plant::Update(Type type)
 				m_Leaf[i].Position().y = (m_Stem[0].GetHeight() * m_Stem[0].Scale().y) * num_stems;
 			}
 		}
-		else if (type == Type::VINE || type==Type::BAMBOO)
+		else if (type == Type::VINE)
 		{
-			for (int i = 0; i < num_leaves; i++)
+			float rot_z = m_Stem[i].Rotation().z;
+			if (flip)
 			{
-				int pos = ceil((i + 1) / 2);
-				m_Leaf[i].Position() = m_Stem[pos].TopPos();
+				rot_z -= 180;
+				flip = false;
 			}
+			else
+			{
+				flip = true;
+			}
+			m_Leaf[i].Position() = m_Stem[i].TopPos();
+			m_Leaf[i].Rotation().z = rot_z;				
+
+		}
+		else if (type == Type::BAMBOO)
+		{
+			int pos = ceil((i + 1) / 2);
+			m_Leaf[i].Position() = m_Stem[pos].TopPos();
 		}
 	}
 }
@@ -307,7 +324,7 @@ void Plant::Render(ID3D11DeviceContext* context, LightShaderClass* shader, Light
 	}
 }
 
-void Plant::SetRot(Type type, Element element, XMFLOAT3 rot)
+void Plant::SetRot(Type type, Element element, XMFLOAT3 rot )
 {
 	if (element == Element::LEAF)
 	{
@@ -320,11 +337,9 @@ void Plant::SetRot(Type type, Element element, XMFLOAT3 rot)
 		}
 		else if (type == Type::VINE)
 		{
-			int rot_x = 0;
 			for (int i = 0; i < num_leaves; i++)
 			{
-				m_Leaf[i].Rotation() = XMFLOAT3(rot_x, 90 + rot.y, m_Leaf[i].StartRot().z + rot.z);
-				rot_x += 180;
+				m_Leaf[i].Rotation() = XMFLOAT3(rot.x, 90 + rot.y, m_Leaf[i].StartRot().z);
 			}
 		}
 		else if (type == Type::BAMBOO)
@@ -348,11 +363,37 @@ void Plant::SetRot(Type type, Element element, XMFLOAT3 rot)
 	{
 		if (type == Type::VINE)
 		{
+			bool inc = true;
+			int ind = 0, max = 3;
 			for (int i = 0; i < num_stems; i++)
 			{
 				m_Stem[i].Rotation().x = rot.x;
-				m_Stem[i].Rotation().y = rot.y + ((i * 2) * rot.y);
-				m_Stem[i].Rotation().z = rot.z + ((i * 2) * rot.z);
+				m_Stem[i].Rotation().y = rot.y + ((ind * 2) * rot.y);
+				m_Stem[i].Rotation().z = rot.z + ((ind * 2) * rot.z);
+				if (inc)
+				{
+					if (ind < max)
+					{
+						ind++;
+					}
+					else
+					{
+						inc = false;
+						ind--;
+					}
+				}
+				else
+				{
+					if (ind > - (max * 2))
+					{
+						ind--;
+					}
+					else
+					{
+						inc = true;
+						ind++;
+					}
+				}
 			}
 		}
 		if (type == Type::FLOWER)

@@ -425,7 +425,7 @@ void GraphicsClass::UpdateCamRot(XMFLOAT2 rot)
 {
 	m_Camera->Rotation().x += rot.x;
 	if (m_Camera->Radius() + rot.y > 5 && 
-		m_Camera->Radius() + rot.y < 50)
+		m_Camera->Radius() + rot.y < 150)
 	{
 		m_Camera->Radius() += rot.y;
 	}

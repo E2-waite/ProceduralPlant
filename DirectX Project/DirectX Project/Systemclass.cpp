@@ -167,13 +167,9 @@ bool SystemClass::Frame()
 
 	x_difference = -x_difference;
 
-	if (m_Input->MouseClicked(true))
-	{
-		m_Graphics->UpdateCamRot(XMFLOAT2(x_difference / 10, 0));
-	}
 	if (m_Input->MouseClicked(false))
 	{
-		m_Graphics->UpdateCamRot(XMFLOAT2(0, y_difference));
+		m_Graphics->UpdateCamRot(XMFLOAT2(x_difference / 10, y_difference));
 	}
 
 
