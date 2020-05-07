@@ -30,7 +30,7 @@ private:
 	Model* m_Leaf;
 	Model* m_Stem;
 	Model* m_Petal;
-	int num_leaves = 4;
+	int num_leaves = 2;
 	int num_petals = 5;
 	int num_stems = 2;
 	bool setting_up = false;

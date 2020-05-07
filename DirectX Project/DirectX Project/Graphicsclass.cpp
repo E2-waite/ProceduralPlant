@@ -327,8 +327,8 @@ void GraphicsClass::GUI()
 	}
 	else if (type == Type::VINE)
 	{
-		static float leaf_rot[3] = { 0, 0, 0 };
-		static float leaf_scl[3] = { 1,1,1 };
+		static float leaf_rot[2] = { 0, 0 };
+		static float leaf_scl[2] = { 1, 1 };
 		static float stem_scl[3] = { 1,1,1 };
 		static float stem_rot[3] = { 0, 0 };
 		int reset_leaves = vine->Leaves();
@@ -348,10 +348,10 @@ void GraphicsClass::GUI()
 			type = Type::BAMBOO;
 		}
 		ImGui::DragInt("Stem Segments", &reset_stems, 0.1f, 1.0f, 25.0f);
-		ImGui::DragFloat3("Stem Rotation", stem_rot, 0.1f, -35.0f, 35.0f);
+		ImGui::DragFloat("Curve", &stem_rot[2], 0.1f, -35.0f, 35.0f);
 		ImGui::DragFloat3("Stem Scale", stem_scl, 0.1f, 0.1f, 3.0f);
-		ImGui::DragFloat3("Leaf Rotation", leaf_rot, 0.1f, -180.0f, 180.0f);
-		ImGui::DragFloat3("Leaf Scale", leaf_scl, 0.1f, 0.1f, 3.0f);
+		ImGui::DragFloat2("Leaf Rotation", leaf_rot, 0.1f, -180.0f, 180.0f);
+		ImGui::DragFloat2("Leaf Scale", leaf_scl, 0.1f, 0.1f, 3.0f);
 		if (ImGui::Button("Export"))
 		{
 			vine_file_name = vine->WriteToFile(Type::VINE);
@@ -368,8 +368,8 @@ void GraphicsClass::GUI()
 		vine->SetNum(type, m_D3D->GetDevice(), Element::STEM, &reset_stems);
 		vine->SetRot(type,Element::STEM, XMFLOAT3{ stem_rot[0], stem_rot[1], stem_rot[2] });
 		vine->SetScl(Element::STEM, XMFLOAT3{ stem_scl[0] , stem_scl[1] , stem_scl[2] });
-		vine->SetRot(type, Element::LEAF, XMFLOAT3{ leaf_rot[0], leaf_rot[1], leaf_rot[2] });
-		vine->SetScl(Element::LEAF, XMFLOAT3{ leaf_scl[0] , leaf_scl[1] , leaf_scl[2] });
+		vine->SetRot(type, Element::LEAF, XMFLOAT3{ leaf_rot[0], leaf_rot[1], 0 });
+		vine->SetScl(Element::LEAF, XMFLOAT3{ leaf_scl[0] , 0 , leaf_scl[1] });
 	}
 	else if (type == Type::BAMBOO)
 	{

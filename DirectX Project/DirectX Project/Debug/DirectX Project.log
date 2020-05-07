@@ -1,4 +1,4 @@
-﻿  Plant.cpp
+﻿  Graphicsclass.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\dxgi.h(44,30): warning C4091: 'typedef ': ignored on left of 'IDXGIObject' when no variable is declared
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d11.h(917,1): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56303): message : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
@@ -12,10 +12,15 @@ C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1):
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56279): message : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\winerror.h(56288): message : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
-D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(84,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(213,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(224,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(300,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(347,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Plant.cpp(350,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(294,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(294,59): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(297,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(297,59): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(300,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(300,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(350,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(350,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(397,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(397,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\DirectX Project\Graphicsclass.cpp(399,59): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   DirectX Project.vcxproj -> D:\Files\University Work\Year 3\AT\ProceduralPlant\DirectX Project\Debug\DirectX Project.exe
